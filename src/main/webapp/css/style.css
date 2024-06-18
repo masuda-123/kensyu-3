@@ -53,7 +53,7 @@ p {
 }
 
 /* Top画面のmenu_areaクラスのbuttonタグ*/
-.menu_area button {
+.menu_area input {
 	/*要素をブロック化*/
 	display: block;
 	/*横幅を全体の40%にする*/

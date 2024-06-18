@@ -5,5 +5,8 @@
 <struts>
 	<!-- アクションのパッケージ定義 -->
 	<package name="default" extends="struts-default">
-	</package>
+        <action name="getList" class="kensyu3.TopAction" method="execute">
+            <result name="success">/list.jsp</result>
+        </action>
+    </package>
 </struts>

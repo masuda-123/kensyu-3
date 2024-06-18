@@ -4,15 +4,14 @@
   <welcome-file-list>
     <welcome-file>top.jsp</welcome-file>
   </welcome-file-list>
-  	<!-- Struts2のサーブレットフィルタ -->
-	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
-
-	<!-- URLに対して使用するフィルタの設定 -->
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+  <!-- Struts2のサーブレットフィルタ -->
+  <filter>
+  	<filter-name>struts2</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <!-- URLに対して使用するフィルタの設定 -->
+  <filter-mapping>
+  	<filter-name>struts2</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
