@@ -10,7 +10,17 @@
 	</head>
 	<body>
 		<div class="btn_area">
-			<button onclick="location.href='./Logout'">logout</button>
 		</div>
+		
+		<s:iterator value="queList">
+			<div class="list_area">
+				<div class="list">
+					<div class="list_question_area">
+						<label>問題:<s:property value="id"/></label>
+            			<p><s:property value="question"/></p>
+            		</div>
+            	</div>
+            </div>
+    	</s:iterator>
 	</body>
 </html>

@@ -10,18 +10,12 @@
 	</head>
 	<body>
 		<div class="btn_area">
-			<button onclick="location.href='./Logout'">logout</button>
+			<a href="<s:url action='getLogout'/>"><button>logout</button></a>
 		</div>
 		<div class="menu_area">
-		     <s:form action="getList">
-		     	<s:submit value="問題と答えを確認・登録する >" />
-		     </s:form>
-		     <s:form action="getTest">
-		     	<s:submit value="テストをする >" />
-		     </s:form>
-		     <s:form action="getHistory">
-		     	<s:submit value="過去の採点結果をみる >" />
-		     </s:form>
+			<a href="<s:url action='getList'/>"><button>問題と答えを確認・登録する ></button></a>
+			<a href="<s:url action='getTest'/>"><button>テストをする > </button></a>
+			<a href="<s:url action='getHistory'/>"><button>過去の採点結果をみる ></button></a>
 		</div>
 	</body>
 </html>

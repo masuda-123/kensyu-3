@@ -52,16 +52,20 @@ p {
 	width: 6%;
 }
 
-/* Top画面のmenu_areaクラスのbuttonタグ*/
-.menu_area input {
-	/*要素をブロック化*/
-	display: block;
+.menu_area a {
+	text-decoration: none;
+	position: relative;
 	/*横幅を全体の40%にする*/
 	width: 40%;
-	/*要素を真ん中に寄せて、上に10pxの余白をつくる*/
-	margin: 10px auto;
-	/*ボタン内の文字を左に寄せる*/
-	text-align: left;
+	padding: 15px;
+    display: block;
+    margin: 10px auto;
+}
+
+/* Top画面のmenu_areaクラスのbuttonタグ*/
+.menu_area button {
+	 position: absolute;
+	 inset: 0;
 }
 
 /* List画面の新規作成ボタンのnew_btnクラス*/
