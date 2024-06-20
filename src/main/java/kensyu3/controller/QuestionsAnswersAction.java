@@ -14,7 +14,7 @@ public class QuestionsAnswersAction extends ActionSupport{
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	
-	public String getList() throws Exception{
+	public String list() throws Exception{
 		QuestionsDao queDao = new QuestionsDao();
 		AnswersDao ansDao = new AnswersDao();
 		//登録されている問題を取得

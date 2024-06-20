@@ -4,11 +4,11 @@
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<!-- アクションのパッケージ定義 -->
-	<package name="default" extends="struts-default">
-		<action name="getTop" class="kensyu3.controller.HomeAction" method="getTop">
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="top" class="kensyu3.controller.HomeAction" method="top">
 			<result name="success">/top.jsp</result>
 		</action>
-		<action name="getList" class="kensyu3.controller.QuestionsAnswersAction" method="getList">
+		<action name="list" class="kensyu3.controller.QuestionsAnswersAction" method="list">
 			<result name="success">/list.jsp</result>
 		</action>
 	</package>
