@@ -14,7 +14,6 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	
 	private int id;
 	private String password;
-	private UsersBean user = new UsersBean();
 	
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -31,7 +30,7 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	//login処理
 	public String postLogin() throws Exception{
 		UsersDao usersDao = new UsersDao();
-		user = usersDao.search_id(id);
+		UsersBean user = usersDao.search_id(id);
 		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードと一致する場合
 		if(user.getId() != 0 && user.getPassword().equals(password)) {
 			//セッションの取得
@@ -53,7 +52,7 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	public int getId() {
 		return id;
 	}
-	public void setName(String id) {
+	public void setId(String id) {
 		this.id = Integer.parseInt(id);
 	}
 	public String getPassword() {

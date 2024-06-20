@@ -15,10 +15,8 @@
 			<result name="success">/login.jsp</result>
 		</action>
 		<action name="postLogin" class="kensyu3.controller.UsersAction" method="postLogin">
-			<result name="success">/top.jsp</result>
-		</action>
-			<action name="postLogin" class="kensyu3.controller.UsersAction" method="postLogin">
 			<result name="failure">/login.jsp</result>
+			<result name="success">/top.jsp</result>
 		</action>
 	</package>
 </struts>
