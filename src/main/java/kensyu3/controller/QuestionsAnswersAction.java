@@ -14,6 +14,7 @@ public class QuestionsAnswersAction extends ActionSupport{
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	
+	//list画面を表示
 	public String list() throws Exception{
 		QuestionsDao queDao = new QuestionsDao();
 		AnswersDao ansDao = new AnswersDao();
