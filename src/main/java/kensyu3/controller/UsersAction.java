@@ -9,5 +9,10 @@ public class UsersAction extends ActionSupport{
 	public String login() throws Exception{
 		return "success";
 	}
+	
+	//login処理
+	public String postLogin() throws Exception{
+		return "success";
+	}
 
 }

@@ -9,22 +9,21 @@
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 	</head>
 	<body>
-		<!-- formタグで入力されたデータを./Loginにpostで送信する  -->
-		<form action="./Login" method="post">
+		<s:form action="postLogin">
 			<div class="form">
 				<label for="userId">ID:</label>
 				<!-- userIdを入力する欄  -->
-				<input type="text" id="userId" name="userId">
+				<s:textfield name = "id"/>
 			</div>
 			<div class="form">
 				<label for="password">pw:</label>
 				<!-- パスワードを入力する欄  -->
-				<input type="password" id="password" name="password">
+				<s:password name = "password"/>
 			</div>
 			<div class="form">
 				<!-- フォームデータを送信するボタン -->
-		    	<input type="submit" value="login" class="login_btn">
+		    	<s:submit class="login_btn" value = "login"/>
 		    </div>
-		</form>
+		</s:form>
 	</body>
 </html>
