@@ -14,7 +14,7 @@
 			<div class="form">
 				<label for="userId">ID:</label>
 				<!-- userIdを入力する欄  -->
-				<input type="number" id="userId" name="userId">
+				<input type="text" id="userId" name="userId">
 			</div>
 			<div class="form">
 				<label for="password">pw:</label>

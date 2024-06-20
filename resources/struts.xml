@@ -11,5 +11,8 @@
 		<action name="list" class="kensyu3.controller.QuestionsAnswersAction" method="list">
 			<result name="success">/list.jsp</result>
 		</action>
+		<action name="login" class="kensyu3.controller.UsersAction" method="login">
+			<result name="success">/login.jsp</result>
+		</action>
 	</package>
 </struts>
