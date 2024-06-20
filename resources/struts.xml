@@ -5,8 +5,11 @@
 <struts>
 	<!-- アクションのパッケージ定義 -->
 	<package name="default" extends="struts-default">
-        <action name="getList" class="kensyu3.controller.QuestionsAnswersAction" method="getList">
-            <result name="success">/list.jsp</result>
-        </action>
-    </package>
+		<action name="getTop" class="kensyu3.controller.HomeAction" method="getTop">
+			<result name="success">/top.jsp</result>
+		</action>
+		<action name="getList" class="kensyu3.controller.QuestionsAnswersAction" method="getList">
+			<result name="success">/list.jsp</result>
+		</action>
+	</package>
 </struts>

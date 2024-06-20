@@ -2,9 +2,9 @@ package kensyu3.controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-public class TopAction extends ActionSupport{
+public class HomeAction extends ActionSupport{
 
-    public String execute() {
+    public String getTop() {
         return "success";
     }
 

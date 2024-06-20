@@ -70,12 +70,18 @@ p {
 
 /* List画面の新規作成ボタンのnew_btnクラス*/
 .new_btn {
-	/*要素をブロック化*/
-	display: block;
-	/*要素を真ん中に寄せる*/
-	margin: 0 auto;
+	text-decoration: none;
+    position: relative;
+    width: 10%;
+    padding: 12px 3px;
+    display: block;
+    margin: 0px auto;
 }
 
+.new_btn button {
+	position: absolute;
+    inset: 0;
+}
 /* List画面のlist_areaクラス*/
 .list_area {
 	/*下に余白を10pxつくる*/
