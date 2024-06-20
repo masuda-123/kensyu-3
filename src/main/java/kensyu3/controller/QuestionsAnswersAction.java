@@ -10,11 +10,11 @@ import kensyu3.model.QuestionsBean;
 import kensyu3.model.QuestionsDao;
 
 public class QuestionsAnswersAction extends ActionSupport{
-	
+	//jspファイルから受け取る値の定義
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	
-    public String getList() throws Exception{
+	public String getList() throws Exception{
 		QuestionsDao queDao = new QuestionsDao();
 		AnswersDao ansDao = new AnswersDao();
 		//登録されている問題を取得
@@ -24,15 +24,14 @@ public class QuestionsAnswersAction extends ActionSupport{
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
 			ansList.add(ans);
 		}
-        return "success";
-    }
-    
-    public ArrayList<QuestionsBean> getQueList() {
-    	return queList;
-    }
-    
-    public ArrayList<ArrayList<AnswersBean>> getAnsList() {
-    	return ansList;
-    }
-
+		return "success";
+	}
+	
+	public ArrayList<QuestionsBean> getQueList() {
+		return queList;
+	}
+	
+	public ArrayList<ArrayList<AnswersBean>> getAnsList() {
+		return ansList;
+	}
 }
