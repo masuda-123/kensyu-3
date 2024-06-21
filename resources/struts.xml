@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<!-- アクションのパッケージ定義 -->
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" extends="struts-default">
 		<action name="top" class="kensyu3.controller.HomeAction" method="top">
 			<result name="success">/top.jsp</result>
 		</action>

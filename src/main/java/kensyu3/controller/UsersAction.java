@@ -33,11 +33,6 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		UsersBean user = usersDao.search_id(id);
 		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードと一致する場合
 		if(user.getId() != 0 && user.getPassword().equals(password)) {
-			//セッションの取得
-			if (session != null) { //既にセッションが存在する場合
-				//セッションを破棄
-				session.clear();
-			}
 			//セッションに、userIdを格納
 			session.put("userId", id);
 			
