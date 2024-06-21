@@ -44,6 +44,12 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		}
 	}
 	
+	//logout処理
+	public String logout() throws Exception{
+		session.clear();
+		return "success";
+	}
+	
 	public int getId() {
 		return id;
 	}

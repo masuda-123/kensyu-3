@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div class="btn_area">
-			<a href="<s:url action='getLogout'/>"><button>logout</button></a>
+			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
 		<div class="menu_area">
 			<a href="<s:url action='list'/>"><button>問題と答えを確認・登録する ></button></a>
