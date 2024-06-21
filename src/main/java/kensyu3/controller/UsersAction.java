@@ -12,7 +12,7 @@ import kensyu3.model.UsersDao;
 
 public class UsersAction extends ActionSupport implements SessionAware{
 	
-	private int id;
+	private String id;
 	private String password;
 	
 	@Override
@@ -30,11 +30,20 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	//login処理
 	public String postLogin() throws Exception{
 		UsersDao usersDao = new UsersDao();
-		UsersBean user = usersDao.search_id(id);
+		int userId = 0;
+		try {
+			//String型のidをint型に変換
+			userId = Integer.parseInt(id);
+		//int型に変換できない場合は、userIdに値を格納しない
+		} catch(NumberFormatException nfex) {
+			
+		}
+		
+		UsersBean user = usersDao.search_id(userId);
 		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードと一致する場合
 		if(user.getId() != 0 && user.getPassword().equals(password)) {
 			//セッションに、userIdを格納
-			session.put("userId", id);
+			session.put("userId", userId);
 			
 			//top画面に遷移
 			return "success";
@@ -50,16 +59,16 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		return "success";
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
-		this.id = Integer.parseInt(id);
+		this.id = id;
 	}
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {//passwordのsetter
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }
