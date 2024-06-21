@@ -8,18 +8,13 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import kensyu3.model.UsersBean;
 import kensyu3.model.UsersDao;
+import kensyu3.other.PasswordEncrypter;
 
 
 public class UsersAction extends ActionSupport implements SessionAware{
 	
 	private String id;
 	private String password;
-	
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-
 	private Map<String, Object> session;
 	
 	//login画面を表示
@@ -40,8 +35,10 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		}
 		
 		UsersBean user = usersDao.search_id(userId);
-		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードと一致する場合
-		if(user.getId() != 0 && user.getPassword().equals(password)) {
+		PasswordEncrypter passwordEncyoter = new PasswordEncrypter();
+		
+		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードを暗号化したものと一致する場合
+		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encypt(password))) {
 			//セッションに、userIdを格納
 			session.put("userId", userId);
 			
@@ -55,6 +52,7 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	
 	//logout処理
 	public String logout() throws Exception{
+		//セッションを削除
 		session.clear();
 		return "success";
 	}
@@ -70,5 +68,10 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
 	}
 }
