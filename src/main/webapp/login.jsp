@@ -12,16 +12,13 @@
 		<s:form action="postLogin">
 			<div class="form">
 				<label for="userId">ID:</label>
-				<!-- userIdを入力する欄  -->
 				<s:textfield name = "id"/>
 			</div>
 			<div class="form">
 				<label for="password">pw:</label>
-				<!-- パスワードを入力する欄  -->
 				<s:password name = "password"/>
 			</div>
 			<div class="form">
-				<!-- フォームデータを送信するボタン -->
 		    	<s:submit class="login_btn" value = "login"/>
 		    </div>
 		</s:form>
