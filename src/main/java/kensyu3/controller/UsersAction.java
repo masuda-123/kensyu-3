@@ -34,6 +34,7 @@ public class UsersAction extends ActionSupport implements SessionAware{
 			
 		}
 		
+		//idをもとにユーザーを取得
 		UsersBean user = usersDao.search_id(userId);
 		PasswordEncrypter passwordEncyoter = new PasswordEncrypter();
 		
@@ -41,11 +42,11 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encypt(password))) {
 			//セッションに、userIdを格納
 			session.put("userId", userId);
-			
 			//top画面に遷移
 			return "success";
 			
 		} else { //IDに一致するレコードがなかった場合もしくは、パスワードが一致しなかった場合
+			//login画面に遷移
 			return "failure";
 		}
 	}
@@ -54,6 +55,7 @@ public class UsersAction extends ActionSupport implements SessionAware{
 	public String logout() throws Exception{
 		//セッションを削除
 		session.clear();
+		//login画面に遷移
 		return "success";
 	}
 	

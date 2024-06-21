@@ -8,23 +8,21 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class Base extends ActionSupport implements SessionAware{
 	
+	private Map<String, Object> session;
+	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
 	
-	private Map<String, Object> session;
-	
 	/**
 	 * ログインチェック判定
 	 */
 	protected boolean isCheckLogin() {
-		//セッションを取得
 		//セッションが空だった場合もしくは、セッションにuserIdが格納されていない場合
 		if (session == null || (session.get("userId")) == null){
 			return false;
 		}
-		//セッションにuserIdがある場合、falseを返す
 		return true;
 	}
 

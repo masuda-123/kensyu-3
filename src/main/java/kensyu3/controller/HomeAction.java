@@ -6,8 +6,10 @@ public class HomeAction extends Base{
 	public String top() {
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
+			//top画面に遷移
 			return "success" ;
 		}else {
+			//login画面に遷移
 			return "failure";
 		}
 	}

@@ -20,13 +20,15 @@ public class QuestionsAnswersAction extends Base{
 			AnswersDao ansDao = new AnswersDao();
 			//登録されている問題を取得
 			queList = queDao.findAll();
-			//それぞれの問題に紐づく答えデータをリスト化する
+			//それぞれの問題に紐づく答えを取得し、リスト化する
 			for(QuestionsBean que: queList) {
 				ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
 				ansList.add(ans);
 		}
+			//list画面に遷移
 			return "success" ;
 		}else {
+			//login画面に遷移
 			return "failure";
 		}
 	}

@@ -33,7 +33,7 @@ public class PasswordEncrypter {
 		return encryptedPassword;
 	}
 	
-	//復号化
+	//パスワードの復号化
 	public String decrypt(String password) {
 		String decryptedPassword = null;
 		try {
