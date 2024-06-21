@@ -19,8 +19,8 @@ public class Base extends ActionSupport implements SessionAware{
 	 * ログインチェック判定
 	 */
 	protected boolean isCheckLogin() {
-		//セッションが空だった場合もしくは、セッションにuserIdが格納されていない場合
-		if (session == null || (session.get("userId")) == null){
+		//セッションにuserIdが格納されていない場合
+		if (session.get("userId") == null){
 			return false;
 		}
 		return true;
