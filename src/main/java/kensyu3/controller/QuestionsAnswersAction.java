@@ -24,8 +24,20 @@ public class QuestionsAnswersAction extends Base{
 			for(QuestionsBean que: queList) {
 				ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
 				ansList.add(ans);
-		}
+			}
 			//list画面に遷移
+			return "success" ;
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	//register画面を表示
+	public String register() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//register画面に遷移
 			return "success" ;
 		}else {
 			//login画面に遷移

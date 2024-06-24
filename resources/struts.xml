@@ -23,5 +23,9 @@
 		<action name="logout" class="kensyu3.controller.UsersAction" method="logout">
 			<result name="success">/login.jsp</result>
 		</action>
+		<action name="register" class="kensyu3.controller.QuestionsAnswersAction" method="register">
+			<result name="success">/register.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>
