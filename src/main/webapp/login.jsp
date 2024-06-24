@@ -19,8 +19,8 @@
 				<s:password name = "password"/>
 			</div>
 			<div class="form">
-		    	<s:submit class="login_btn" value = "login"/>
-		    </div>
+				<s:submit class="login_btn" value = "login"/>
+			</div>
 		</s:form>
 	</body>
 </html>

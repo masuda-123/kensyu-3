@@ -13,7 +13,7 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-		<a class="new_btn" href="<s:url action='getRegister'/>"><button>新規登録</button></a>
+		<a class="new_btn" href="<s:url action='register'/>"><button>新規登録</button></a>
 		<s:iterator value="queList" status="queSt">
 			<div class="list_area">
 				<div class="list">
