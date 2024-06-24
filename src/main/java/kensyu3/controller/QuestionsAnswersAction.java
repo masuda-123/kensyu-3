@@ -47,6 +47,18 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//register_confirm画面を表示
+	public String register_confirm()  throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//register_confirm画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	//登録処理
 	public String postRegister() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
@@ -54,7 +66,7 @@ public class QuestionsAnswersAction extends Base{
 			QuestionsDao queDao = new QuestionsDao();
 			AnswersDao ansDao = new AnswersDao(); 
 			
-			///register_questionメソッドを呼び出して、問題を登録し、questionIdを取得
+			//register_questionメソッドを呼び出して、問題を登録し、questionIdを取得
 			int questionId = queDao.register(question);
 			//register_answersメソッドを呼び出して、答えを登録
 			ansDao.register(questionId, answers);
@@ -74,11 +86,19 @@ public class QuestionsAnswersAction extends Base{
 		return ansList;
 	}
 	
+	public String getQuestion() {
+		return question;
+	}
+	
 	public void setQuestion(String question) {
 		this.question = question;
 	}
 	
-	public void setAnswers(String[] answers) {
-		this.answers = answers;
+	public String[] getAnswers() {
+		return answers;
+	}
+	
+	public void setAnswers(String answer) {
+		this.answers = answer.split(", ");
 	}
 }

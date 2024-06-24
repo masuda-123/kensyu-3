@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>register</title>
+		<title>register_confirm</title>
 		<link rel="stylesheet" type="text/css" href="./css/style.css">
 	</head>
 	<body>
@@ -13,24 +13,21 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-			<s:form action="register_confirm">
-			<div class="question_form_area">
-				<label for="question">問題:</label>
-				<s:textarea name="question"/>
+		<s:form action="postRegister">
+			<div class="question_area">
+				<label>問題:</label>
+				<p><s:property value="question"/></p>
 			</div>
-			<div class="answer_forms_area">
-				<label for="answer">答え:</label>
-				<div class="answer_forms">
-					<div class="answer_form" id="answerform1">
-						<s:textfield name = "answers"/>
-					</div>
-					<div class="answer_form" id="answerform2">
-						<s:textfield name = "answers"/>
-					</div>
+			<div class="answers_area">
+				<label>答え:</label>
+				<div class="answers">
+					<s:iterator value="answers">
+						<p><s:property /></p>
+					</s:iterator>
 				</div>
 			</div>
 			<div class="bottom_btn_area">
-				<s:submit value = "確認"/>
+				<s:submit value = "登録"/>
 			</div>
 		</s:form>
 	</body>
