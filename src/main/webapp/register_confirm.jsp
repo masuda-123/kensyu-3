@@ -17,6 +17,7 @@
 			<div class="question_area">
 				<label>問題:</label>
 				<p><s:property value="question"/></p>
+				<s:hidden name="question" value="%{question}"/>
 			</div>
 			<div class="answers_area">
 				<label>答え:</label>
@@ -24,6 +25,7 @@
 					<s:iterator value="answers">
 						<p><s:property /></p>
 					</s:iterator>
+					<s:hidden name="answers" value="%{answers}"/>
 				</div>
 			</div>
 			<div class="bottom_btn_area">
