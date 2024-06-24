@@ -135,7 +135,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 * 答えを登録する
 	*/
-	public void register_answers(int questionId, String[] answers) throws Exception {
+	public void register(int questionId, String[] answers) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -164,7 +164,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 * 答えを削除する
 	*/
-	public void delete_answers(int questionId) throws Exception {
+	public void delete(int questionId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();

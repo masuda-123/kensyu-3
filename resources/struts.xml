@@ -27,5 +27,9 @@
 			<result name="success">/register.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="postRegister" class="kensyu3.controller.QuestionsAnswersAction" method="postRegister">
+			<result name="success">/list.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -9,6 +9,8 @@ import kensyu3.model.QuestionsDao;
 
 public class QuestionsAnswersAction extends Base{
 	//jspファイルから受け取る値の定義
+	private String question;
+	private String[] answers;
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	
@@ -45,11 +47,38 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//登録処理
+	public String postRegister() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			QuestionsDao queDao = new QuestionsDao();
+			AnswersDao ansDao = new AnswersDao(); 
+			
+			///register_questionメソッドを呼び出して、問題を登録し、questionIdを取得
+			int questionId = queDao.register(question);
+			//register_answersメソッドを呼び出して、答えを登録
+			ansDao.register(questionId, answers);
+			//list画面に遷移
+			return "success" ;
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	public ArrayList<QuestionsBean> getQueList() {
 		return queList;
 	}
 	
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() {
 		return ansList;
+	}
+	
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
+	public void setAnswers(String[] answers) {
+		this.answers = answers;
 	}
 }

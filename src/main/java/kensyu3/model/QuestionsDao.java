@@ -91,7 +91,7 @@ public class QuestionsDao extends ConnectionDao {
 	/**
 	 * 問題を登録する
 	*/
-	public int register_question(String question) throws Exception {
+	public int register(String question) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -134,7 +134,7 @@ public class QuestionsDao extends ConnectionDao {
 	/**
 	 * 問題の削除
 	*/
-	public void delete_question(int id) throws Exception {
+	public void delete(int id) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -159,7 +159,7 @@ public class QuestionsDao extends ConnectionDao {
 	/**
 	 * 問題を更新する
 	*/
-	public void update_question(String question, int questionId) throws Exception {
+	public void update(String question, int questionId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
