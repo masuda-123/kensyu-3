@@ -13,7 +13,7 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-		<s:form action="postRegister">
+		<s:form action="register_complete">
 			<div class="question_area">
 				<label>問題:</label>
 				<p><s:property value="question"/></p>

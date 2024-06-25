@@ -32,7 +32,7 @@
 			<result name="success">/register_confirm.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
-		<action name="postRegister" class="kensyu3.controller.QuestionsAnswersAction" method="postRegister">
+		<action name="register_complete" class="kensyu3.controller.QuestionsAnswersAction" method="register_complete">
 			<result name="success">/list.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
