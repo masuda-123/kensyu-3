@@ -36,7 +36,8 @@
 				//削除ボタンを作成
 				var delete_btn = document.createElement('button');
 				delete_btn.type = 'button';
-				delete_btn.setAttribute('onclick', `deleteForm(${answer_form.id})`);
+				var function_name = 'deleteForm(' + answer_form.id + ')';
+				delete_btn.setAttribute('onclick', function_name);
 				var text = document.createTextNode('削除');
 				//答えのフォームリストを含むタグを取得
 				var parent = document.querySelector('.answer_forms');
@@ -48,6 +49,10 @@
 				answer_form.appendChild(delete_btn);
 				//削除ボタンにテキストを追加
 				delete_btn.appendChild(text);
+			};
+			function deleteForm(e) {	
+				//答えのフォームと削除ボタンを削除
+				e.remove();
 			};
 		</script>
 	</head>
