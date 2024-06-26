@@ -42,6 +42,7 @@
 				</div>
 			</div>
 			<div class="bottom_btn_area">
+				<button type="button" onclick="history.back()">戻る</button>
 				<s:submit value = "登録"/>
 			</div>
 		</s:form>
