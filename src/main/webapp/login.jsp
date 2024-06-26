@@ -6,7 +6,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>login</title>
-		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<style type="text/css">
+			body {width: 650px; margin: 0 auto;}
+			label {margin-right: 10px;}
+			.form {display: flex; justify-content: center; margin-top: 15px;}
+			.form label { width: 6%;}
+		</style>
 	</head>
 	<body>
 		<s:form action="postLogin">
