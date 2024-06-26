@@ -26,6 +26,11 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
+		<!-- エラーメッセージがある場合、エラーメッセージを表示  -->
+		<s:set var="errorMessage" value="errorMessage"/>
+		<s:if test="%{!#errorMessage.isEmpty()}">
+			<p class="error"><s:property escapeHtml="false" value="errorMessage"/></p>
+		</s:if>
 		<s:form action="register_complete">
 			<div class="question_area">
 				<label>問題:</label>
@@ -43,7 +48,10 @@
 			</div>
 			<div class="bottom_btn_area">
 				<button type="button" onclick="history.back()">戻る</button>
-				<s:submit value = "登録"/>
+				<!-- エラーメッセージがない場合、登録ボタンを表示  -->
+				<s:if test="%{#errorMessage.isEmpty()}">
+					<s:submit value = "登録"/>
+				</s:if>
 			</div>
 		</s:form>
 	</body>
