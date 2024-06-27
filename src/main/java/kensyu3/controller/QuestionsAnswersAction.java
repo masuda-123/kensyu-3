@@ -74,19 +74,24 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
-	    QuestionsDao queDao = new QuestionsDao();
-	    //問題を全件取得
-	    queList = queDao.findAll();
+		if (queList.isEmpty()) {
+			QuestionsDao queDao = new QuestionsDao();
+			//問題を全件取得
+			queList = queDao.findAll();
+		}
 		return queList;
 	}
 	
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() throws Exception{
-	      AnswersDao ansDao = new AnswersDao();
-	      //答えを全件取得
-	      for(QuestionsBean que: queList) {
-	        ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
-	        ansList.add(ans);
-	      }
+		//答えが空だった場合
+		if (ansList.isEmpty()) {
+			AnswersDao ansDao = new AnswersDao();
+			//答えを全件取得
+			for(QuestionsBean que: queList) {
+				ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
+				ansList.add(ans);
+			}
+		}
 		return ansList;
 	}
 	
