@@ -3,6 +3,7 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+	<constant name="struts.action.extension" value=""/>
 	<!-- アクションのパッケージ定義 -->
 	<package name="default" extends="struts-default">
 		<action name="top" class="kensyu3.controller.HomeAction" method="top">
@@ -22,6 +23,18 @@
 		</action>
 		<action name="logout" class="kensyu3.controller.UsersAction" method="logout">
 			<result name="success">/login.jsp</result>
+		</action>
+		<action name="register" class="kensyu3.controller.QuestionsAnswersAction" method="register">
+			<result name="success">/register.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="register_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="register_confirm">
+			<result name="success">/register_confirm.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="register_complete" class="kensyu3.controller.QuestionsAnswersAction" method="register_complete">
+			<result name="success">/list.jsp</result>
+			<result name="failure">/login.jsp</result>
 		</action>
 	</package>
 </struts>
