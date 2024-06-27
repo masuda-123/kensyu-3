@@ -34,16 +34,16 @@
 		<s:form action="register_complete">
 			<div class="question_area">
 				<label>問題:</label>
-				<p><s:property value="question"/></p>
-				<s:hidden name="question" value="%{question}"/>
+				<p><s:property value="inputQuestion"/></p>
+				<s:hidden name="inputQuestion" value="%{inputQuestion}"/>
 			</div>
 			<div class="answers_area">
 				<label>答え:</label>
 				<div class="answers">
-					<s:iterator value="answers">
+					<s:iterator value="inputAnswers">
 						<p><s:property /></p>
 					</s:iterator>
-					<s:hidden name="answers" value="%{answers}"/>
+					<s:hidden name="inputAnswers" value="%{inputAnswers}"/>
 				</div>
 			</div>
 			<div class="bottom_btn_area">

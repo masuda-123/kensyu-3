@@ -10,11 +10,12 @@ import kensyu3.other.Validation;
 
 public class QuestionsAnswersAction extends Base{
 	//jspファイルから受け取る値の定義
-	private String question;
-	private String[] answers;
+	private String inputQuestion;
+	private String[] inputAnswers;
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	private String errorMessage;
+	private int questionId;
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -46,7 +47,7 @@ public class QuestionsAnswersAction extends Base{
 		if (super.isCheckLogin()) {
 			Validation val = new Validation();
 			//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
-			errorMessage = val.validate(question, answers);
+			errorMessage = val.validate(inputQuestion, inputAnswers);
 			//register_confirm画面に遷移
 			return "success";
 		}else {
@@ -62,9 +63,9 @@ public class QuestionsAnswersAction extends Base{
 			QuestionsDao queDao = new QuestionsDao();
 			AnswersDao ansDao = new AnswersDao(); 
 			//register_questionメソッドを呼び出して、問題を登録し、questionIdを取得
-			int questionId = queDao.register(question);
+			int questionId = queDao.register(inputQuestion);
 			//register_answersメソッドを呼び出して、答えを登録
-			ansDao.register(questionId, answers);
+			ansDao.register(questionId, inputAnswers);
 			//list画面に遷移
 			return "success";
 		}else {
@@ -107,24 +108,32 @@ public class QuestionsAnswersAction extends Base{
 		return ansList;
 	}
 	
-	public String getQuestion() {
-		return question;
+	public String getInputQuestion() {
+		return inputQuestion;
 	}
 	
-	public void setQuestion(String question) {
-		this.question = question;
+	public void setInputQuestion(String inputQuestion) {
+		this.inputQuestion = inputQuestion;
 	}
 	
 	
-	public String[] getAnswers() {
-		return answers;
+	public String[] getInputAnswers() {
+		return inputAnswers;
 	}
 	
-	public void setAnswers(String answer) {
-		this.answers = answer.split(", ");
+	public void setInputAnswers(String inputAnswers) {
+		this.inputAnswers = inputAnswers.split(", ");
 	}
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+	
+	public int getQuestionId() {
+		return questionId;
+	}
+	
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
 	}
 }
