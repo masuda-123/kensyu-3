@@ -31,7 +31,7 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//register画面を表示
+	//登録画面を表示
 	public String register() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
@@ -43,7 +43,7 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//register_confirm画面を表示
+	//登録確認画面を表示
 	public String register_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
@@ -76,7 +76,7 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//delete_confirm画面を表示
+	//削除確認画面を表示
 	public String delete_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
@@ -88,7 +88,25 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//削除処理
+	public String delete_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			QuestionsDao queDao = new QuestionsDao();
+			AnswersDao ansDao = new AnswersDao();
+			//問題と答えを削除
+			queDao.delete(questionId);
+			ansDao.delete(questionId);
+			//list画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
+		//queListが空だった場合
 		if (queList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
 			//問題を全件取得
@@ -98,7 +116,7 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() throws Exception{
-		//答えが空だった場合
+		//ansListが空だった場合
 		if (ansList.isEmpty()) {
 			AnswersDao ansDao = new AnswersDao();
 			//答えを全件取得
@@ -140,6 +158,7 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	public String getQuestion() throws Exception{
+		//questionがnullだった場合
 		if (question == null) {
 			QuestionsDao queDao = new QuestionsDao();
 			QuestionsBean que = queDao.findById(questionId);
@@ -149,13 +168,16 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	public String[] getAnswers() throws Exception {
+		//answersがnullだった場合
 		if (answers == null) {
 			AnswersDao ansDao = new AnswersDao();
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
+			//答えを一時的に入れる配列
 			String[] tempAnswers = new String[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
 				tempAnswers[i] = ans.get(i).getAnswer();
 			}
+			//aanswersに配列になっている答えを入れ直す
 			answers = tempAnswers;
 		}
 		return answers;
