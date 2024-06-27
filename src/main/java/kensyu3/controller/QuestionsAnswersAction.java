@@ -41,7 +41,7 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	//register_confirm画面を表示
-	public String register_confirm()  throws Exception{
+	public String register_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			Validation val = new Validation();
@@ -66,6 +66,18 @@ public class QuestionsAnswersAction extends Base{
 			//register_answersメソッドを呼び出して、答えを登録
 			ansDao.register(questionId, answers);
 			//list画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	//delete_confirm画面を表示
+	public String delete_confirm() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//delete_confirm画面に遷移
 			return "success";
 		}else {
 			//login画面に遷移
