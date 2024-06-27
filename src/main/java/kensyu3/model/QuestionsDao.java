@@ -53,7 +53,7 @@ public class QuestionsDao extends ConnectionDao {
 	/**
 	 * 指定IDのレコードを取得する
 	 */
-	public QuestionsBean search_id(int questionId) throws Exception {
+	public QuestionsBean findById(int questionId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();

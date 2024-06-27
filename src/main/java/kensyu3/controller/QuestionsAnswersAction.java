@@ -16,6 +16,8 @@ public class QuestionsAnswersAction extends Base{
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	private String errorMessage;
 	private int questionId;
+	private String question;
+	private String[] answers;
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -135,5 +137,27 @@ public class QuestionsAnswersAction extends Base{
 	
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
+	}
+	
+	public String getQuestion() throws Exception{
+		if (question == null) {
+			QuestionsDao queDao = new QuestionsDao();
+			QuestionsBean que = queDao.findById(questionId);
+			question = que.getQuestion();
+		}
+		return question;
+	}
+	
+	public String[] getAnswers() throws Exception {
+		if (answers == null) {
+			AnswersDao ansDao = new AnswersDao();
+			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
+			String[] tempAnswers = new String[ans.size()];
+			for(int i = 0; i < ans.size(); i++) {
+				tempAnswers[i] = ans.get(i).getAnswer();
+			}
+			answers = tempAnswers;
+		}
+		return answers;
 	}
 }
