@@ -41,8 +41,8 @@
 					</div>
 				</div>
 				<div>
-					<a href="<s:url action='edit'/>"><button>編集</button></a>
-					<a href="<s:url action='delete'/>"><button>削除</button></a>
+					<a href="<s:url action='edit'><s:param name="questionId" value="queList.get(#queSt.index).id" /></s:url>"><button>編集</button></a>
+					<a href="<s:url action='delete_confirm'><s:param name="questionId" value="queList.get(#queSt.index).id" /></s:url>"><button>削除</button></a>
 				</div>
 			</div>
 		</s:iterator>

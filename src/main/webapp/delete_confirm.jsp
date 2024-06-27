@@ -1,12 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Struts2のタグライブラリを使用可能にする -->
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Delete_confirm</title>
+		<title>delete_confirm</title>
+		<style type="text/css">
+			body {width: 650px; margin: 0 auto;}
+			p {margin: 0;}
+			.btn_area {width: 100%; text-align: right;}
+			.bottom_btn_area {text-align: right; margin-top: 10px;}
+			label {margin-right: 10px;}
+			.question_area label, .answers_area label {width: 7%;　text-align: right;}
+			.question_area {margin-top: 10px; display: flex;}
+			.question_area p {width: 87%;overflow-wrap: break-word;}
+			.answers_area {margin-top: 10px; display: flex;}
+			.answers {width: 87%;}
+			.answers p {overflow-wrap: break-word;}
+		</style>
 	</head>
 	<body>
 		<div class="btn_area">
