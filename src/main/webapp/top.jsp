@@ -8,7 +8,7 @@
 		<title>top</title>
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
-			.btn_area, .bottom_menu_area {width: 100%; text-align: right;}
+			.btn_area {width: 100%; text-align: right;}
 			.menu_area a {text-decoration: none; position: relative; width: 40%; padding: 15px; display: block; margin: 10px auto;}
 			.menu_area button {position: absolute; inset: 0;}
 		</style>

@@ -64,9 +64,9 @@ public class QuestionsAnswersAction extends Base{
 		if (super.isCheckLogin()) {
 			QuestionsDao queDao = new QuestionsDao();
 			AnswersDao ansDao = new AnswersDao(); 
-			//register_questionメソッドを呼び出して、問題を登録し、questionIdを取得
+			//問題を登録
 			int questionId = queDao.register(inputQuestion);
-			//register_answersメソッドを呼び出して、答えを登録
+			//答えを登録
 			ansDao.register(questionId, inputAnswers);
 			//list画面に遷移
 			return "success";
@@ -109,7 +109,7 @@ public class QuestionsAnswersAction extends Base{
 		//queListが空だった場合
 		if (queList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
-			//問題を全件取得
+			//問題データを全件取得
 			queList = queDao.findAll();
 		}
 		return queList;
@@ -119,7 +119,7 @@ public class QuestionsAnswersAction extends Base{
 		//ansListが空だった場合
 		if (ansList.isEmpty()) {
 			AnswersDao ansDao = new AnswersDao();
-			//答えを全件取得
+			//答えデータを全件取得
 			for(QuestionsBean que: queList) {
 				ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
 				ansList.add(ans);
@@ -161,7 +161,9 @@ public class QuestionsAnswersAction extends Base{
 		//questionがnullだった場合
 		if (question == null) {
 			QuestionsDao queDao = new QuestionsDao();
+			//questionIdから問題文データを取得
 			QuestionsBean que = queDao.findById(questionId);
+			//問題データから問題文を取得
 			question = que.getQuestion();
 		}
 		return question;
@@ -171,10 +173,12 @@ public class QuestionsAnswersAction extends Base{
 		//answersがnullだった場合
 		if (answers == null) {
 			AnswersDao ansDao = new AnswersDao();
+			//questionIdから答えのデータを取得
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
 			//答えを一時的に入れる配列
 			String[] tempAnswers = new String[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
+				//答えデータから答えを取得し、配列に格納
 				tempAnswers[i] = ans.get(i).getAnswer();
 			}
 			//aanswersに配列になっている答えを入れ直す
