@@ -105,6 +105,18 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//編集画面を表示
+	public String edit(){
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//edit画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
 		//queListが空だった場合
 		if (queList.isEmpty()) {

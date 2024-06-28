@@ -64,7 +64,7 @@
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
 			<s:form action="edit_confirm">
-			<div class="question_form_area">
+			<div class="question_id_area">
 				<label>問題番号:</label>
 				<p><s:property value="questionId"/></p>
 			</div>
