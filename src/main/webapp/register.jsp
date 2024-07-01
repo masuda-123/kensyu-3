@@ -63,14 +63,14 @@
 		</div>
 			<s:form action="register_confirm">
 			<div class="question_form_area">
-				<label for="question">問題:</label>
-				<s:textarea name="question"/>
+				<label for="inputQuestion">問題:</label>
+				<s:textarea name="inputQuestion"/>
 			</div>
 			<div class="answer_forms_area">
-				<label for="answer">答え:</label>
+				<label for="inputAnswers">答え:</label>
 				<div class="answer_forms">
 					<div class="answer_form" id="answer_form1">
-						<s:textfield name = "answers"/>
+						<s:textfield name = "inputAnswers"/>
 					</div>
 				</div>
 			</div>

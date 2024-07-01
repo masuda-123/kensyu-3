@@ -10,11 +10,14 @@ import kensyu3.other.Validation;
 
 public class QuestionsAnswersAction extends Base{
 	//jspファイルから受け取る値の定義
-	private String question;
-	private String[] answers;
+	private String inputQuestion;
+	private String[] inputAnswers;
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
 	private String errorMessage;
+	private int questionId;
+	private String question;
+	private String[] answers;
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -28,7 +31,7 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//register画面を表示
+	//登録画面を表示
 	public String register() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
@@ -40,13 +43,13 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//register_confirm画面を表示
-	public String register_confirm()  throws Exception{
+	//登録確認画面を表示
+	public String register_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			Validation val = new Validation();
 			//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
-			errorMessage = val.validate(question, answers);
+			errorMessage = val.validate(inputQuestion, inputAnswers);
 			//register_confirm画面に遷移
 			return "success";
 		}else {
@@ -61,10 +64,39 @@ public class QuestionsAnswersAction extends Base{
 		if (super.isCheckLogin()) {
 			QuestionsDao queDao = new QuestionsDao();
 			AnswersDao ansDao = new AnswersDao(); 
-			//register_questionメソッドを呼び出して、問題を登録し、questionIdを取得
-			int questionId = queDao.register(question);
-			//register_answersメソッドを呼び出して、答えを登録
-			ansDao.register(questionId, answers);
+			//問題を登録
+			int questionId = queDao.register(inputQuestion);
+			//答えを登録
+			ansDao.register(questionId, inputAnswers);
+			//list画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	//削除確認画面を表示
+	public String delete_confirm() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//delete_confirm画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	//削除処理
+	public String delete_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			QuestionsDao queDao = new QuestionsDao();
+			AnswersDao ansDao = new AnswersDao();
+			//問題と答えを削除
+			queDao.delete(questionId);
+			ansDao.delete(questionId);
 			//list画面に遷移
 			return "success";
 		}else {
@@ -74,19 +106,20 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
+		//queListが空だった場合
 		if (queList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
-			//問題を全件取得
+			//問題データを全件取得
 			queList = queDao.findAll();
 		}
 		return queList;
 	}
 	
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() throws Exception{
-		//答えが空だった場合
+		//ansListが空だった場合
 		if (ansList.isEmpty()) {
 			AnswersDao ansDao = new AnswersDao();
-			//答えを全件取得
+			//答えデータを全件取得
 			for(QuestionsBean que: queList) {
 				ArrayList<AnswersBean> ans = ansDao.findByQuestionId(que.getId());
 				ansList.add(ans);
@@ -95,24 +128,62 @@ public class QuestionsAnswersAction extends Base{
 		return ansList;
 	}
 	
-	public String getQuestion() {
-		return question;
+	public String getInputQuestion() {
+		return inputQuestion;
 	}
 	
-	public void setQuestion(String question) {
-		this.question = question;
+	public void setInputQuestion(String inputQuestion) {
+		this.inputQuestion = inputQuestion;
 	}
 	
 	
-	public String[] getAnswers() {
-		return answers;
+	public String[] getInputAnswers() {
+		return inputAnswers;
 	}
 	
-	public void setAnswers(String answer) {
-		this.answers = answer.split(", ");
+	public void setInputAnswers(String inputAnswers) {
+		this.inputAnswers = inputAnswers.split(", ");
 	}
 	
 	public String getErrorMessage() {
 		return errorMessage;
+	}
+	
+	public int getQuestionId() {
+		return questionId;
+	}
+	
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+	
+	public String getQuestion() throws Exception{
+		//questionがnullだった場合
+		if (question == null) {
+			QuestionsDao queDao = new QuestionsDao();
+			//questionIdから問題文データを取得
+			QuestionsBean que = queDao.findById(questionId);
+			//問題データから問題文を取得
+			question = que.getQuestion();
+		}
+		return question;
+	}
+	
+	public String[] getAnswers() throws Exception {
+		//answersがnullだった場合
+		if (answers == null) {
+			AnswersDao ansDao = new AnswersDao();
+			//questionIdから答えのデータを取得
+			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
+			//答えを一時的に入れる配列
+			String[] tempAnswers = new String[ans.size()];
+			for(int i = 0; i < ans.size(); i++) {
+				//答えデータから答えを取得し、配列に格納
+				tempAnswers[i] = ans.get(i).getAnswer();
+			}
+			//aanswersに配列になっている答えを入れ直す
+			answers = tempAnswers;
+		}
+		return answers;
 	}
 }

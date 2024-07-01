@@ -9,7 +9,7 @@
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
-			.btn_area, .bottom_menu_area {width: 100%; text-align: right;}
+			.btn_area {width: 100%; text-align: right;}
 			label {margin-right: 10px;}
 			.new_btn {text-decoration: none; position: relative; width: 10%; padding: 12px 3px; display: block; margin: 0px auto;}
 			.new_btn button {position: absolute; inset: 0;}
@@ -41,8 +41,13 @@
 					</div>
 				</div>
 				<div>
-					<a href="<s:url action='edit'/>"><button>編集</button></a>
-					<a href="<s:url action='delete'/>"><button>削除</button></a>
+				<!-- パラメータにquestionIdを設定 -->
+					<a href="<s:url action='edit'><s:param name="questionId" value="queList.get(#queSt.index).id" /></s:url>">
+						<button>編集</button>
+					</a>
+					<a href="<s:url action='delete_confirm'><s:param name="questionId" value="queList.get(#queSt.index).id" /></s:url>">
+						<button>削除</button>
+					</a>
 				</div>
 			</div>
 		</s:iterator>
