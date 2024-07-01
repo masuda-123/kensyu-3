@@ -19,6 +19,8 @@
 			.list_question_area p {width: 80%; overflow: hidden; text-overflow: ellipsis;white-space: nowrap;}
 			.list_answers_area {margin-left: 20px;}
 			.list_answers_area p {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+			.list_btn_area {display: flex; width: 14%; justify-content: space-between;}
+			.list_btn_area a {text-decoration: none; position: relative; display: block;}
 		</style>
 	</head>
 	<body>
@@ -40,7 +42,7 @@
 						</s:iterator>
 					</div>
 				</div>
-				<div>
+				<div class="list_btn_area">
 				<!-- パラメータにquestionIdを設定 -->
 					<a href="<s:url action='edit'><s:param name="questionId" value="queList.get(#queSt.index).id" /></s:url>">
 						<button>編集</button>

@@ -144,13 +144,18 @@ public class QuestionsAnswersAction extends Base{
 			//問題を編集
 			queDao.update(inputQuestion,questionId);
 			
-			//問題idから答えデータを取得
+			//問題idからDBに登録されている答えデータを取得
 			ArrayList<AnswersBean> aList = ansDao.findByQuestionId(questionId);
 			
-			//フォームから渡された答えの数だけ処理を繰り返す
+			//入力された答えの数だけ処理を繰り返す
 			for(int i = 0; i < inputAnswers.length; i++) {
-				if( i < answersId.length) { //フォームから渡された答えの中に、idを持つものがあった場合（更新された答えがあった場合）
-					ansDao.update_answer(answersId[i], inputAnswers[i]); //答えを更新
+				if( i < answersId.length) { //入力された答えの中に、idを持つものがあった場合（更新された答えがあった場合）
+					//idをもとにDBに登録されている答えデータを取得
+					AnswersBean tmp_answer = ansDao.findById(answersId[i]);
+					//入力された答えと、DBに登録されている答えの内容が一致していなかった場合
+					if(!(inputAnswers[i].equals(tmp_answer.getAnswer()))) {
+						ansDao.update_answer(answersId[i], inputAnswers[i]); //答えを更新
+					}
 				} else { //idを持たない答えがあった場合（新たに追加された答えがあった場合）
 					ansDao.register_answer(questionId, inputAnswers[i]); //答えを登録
 				}
