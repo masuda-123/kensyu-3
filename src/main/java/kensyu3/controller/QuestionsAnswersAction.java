@@ -151,9 +151,9 @@ public class QuestionsAnswersAction extends Base{
 			for(int i = 0; i < inputAnswers.length; i++) {
 				if( i < answersId.length) { //入力された答えの中に、idを持つものがあった場合（更新された答えがあった場合）
 					//idをもとにDBに登録されている答えデータを取得
-					AnswersBean tmp_answer = ansDao.findById(answersId[i]);
+					AnswersBean tmpAnswer = ansDao.findById(answersId[i]);
 					//入力された答えと、DBに登録されている答えの内容が一致していなかった場合
-					if(!(inputAnswers[i].equals(tmp_answer.getAnswer()))) {
+					if(!(inputAnswers[i].equals(tmpAnswer.getAnswer()))) {
 						ansDao.update_answer(answersId[i], inputAnswers[i]); //答えを更新
 					}
 				} else { //idを持たない答えがあった場合（新たに追加された答えがあった場合）
@@ -276,6 +276,7 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	public void setAnswersId(String answersId) {
+		//answersIdを配列にして、int型に変換
 		this.answersId = Stream.of(answersId.split(", ")).mapToInt(Integer::parseInt).toArray();
 	}
 }

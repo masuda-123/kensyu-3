@@ -82,6 +82,7 @@
 						<div class="answer_form" id="answer_form${ansSt.count}">
 							<s:textfield name="inputAnswers" value="%{answers[#ansSt.index]}" />
 							<s:hidden name="answersId" value="%{answersId[#ansSt.index]}" />
+							<!-- 2つ目以降に表示されている答えフォームには削除ボタンを設置 -->
 							<s:if test="%{#ansSt.index != 0}">
 								<button type="button" onclick="deleteForm(answer_form${ansSt.count})">削除</button>
 							</s:if>
