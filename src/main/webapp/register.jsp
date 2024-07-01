@@ -32,7 +32,7 @@
 				//答えの入力フォームを作成
 				var input = document.createElement('input');
 				input.type = 'text';
-				input.name = 'answers';
+				input.name = 'inputAnswers';
 				//削除ボタンを作成
 				var delete_btn = document.createElement('button');
 				delete_btn.type = 'button';

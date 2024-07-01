@@ -26,6 +26,7 @@
 		</style>
 		<s:set var="answer_length" value="answers.length"/>
 		<script type="text/javascript">
+			//iの初期値を答えの数に設定
 			var i = ${answer_length};
 			function addForm() {
 				//答えのフォームとボタンを含むdivタグを作成
@@ -35,7 +36,7 @@
 				//答えの入力フォームを作成
 				var input = document.createElement('input');
 				input.type = 'text';
-				input.name = 'answers';
+				input.name = 'inputAnswers';
 				//削除ボタンを作成
 				var delete_btn = document.createElement('button');
 				delete_btn.type = 'button';
@@ -64,10 +65,11 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-			<s:form action="edit_confirm">
+		<s:form action="edit_confirm">
 			<div class="question_id_area">
 				<label>問題番号:</label>
 				<p><s:property value="questionId"/></p>
+				<s:hidden name="questionId" value="%{questionId}" />
 			</div>
 			<div class="question_form_area">
 				<label for="inputQuestion">問題:</label>
