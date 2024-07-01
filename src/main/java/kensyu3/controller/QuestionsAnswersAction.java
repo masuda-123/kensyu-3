@@ -117,6 +117,21 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//編集確認画面を表示
+	public String edit_confirm(){
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			Validation val = new Validation();
+			//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
+			errorMessage = val.validate(inputQuestion, inputAnswers);
+			//edit画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
 		//queListが空だった場合
 		if (queList.isEmpty()) {

@@ -48,5 +48,9 @@
 			<result name="success">/edit.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="edit_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="edit_confirm">
+			<result name="success">/edit_confirm.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>

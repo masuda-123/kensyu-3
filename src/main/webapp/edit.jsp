@@ -24,8 +24,9 @@
 			.question_id_area {display: flex;}
 			.question_id_area label {width: 11%; text-align: right;}
 		</style>
+		<s:set var="answer_length" value="answers.length"/>
 		<script type="text/javascript">
-			var i = 1;
+			var i = ${answer_length};
 			function addForm() {
 				//答えのフォームとボタンを含むdivタグを作成
 				var answer_form = document.createElement('div');
@@ -70,14 +71,20 @@
 			</div>
 			<div class="question_form_area">
 				<label for="inputQuestion">問題:</label>
-				<s:textarea name="inputQuestion"/>
+				<s:textarea name="inputQuestion" value="%{question}"/>
 			</div>
 			<div class="answer_forms_area">
 				<label for="inputAnswers">答え:</label>
 				<div class="answer_forms">
-					<div class="answer_form" id="answer_form1">
-						<s:textfield name = "inputAnswers"/>
-					</div>
+					<s:iterator value="answers" status="ansSt">
+						<div class="answer_form" id="answer_form${ansSt.count}">
+							<s:textfield name="inputAnswers" value="%{answers[#ansSt.index]}" />
+							<s:hidden name="answersId" value="%{answersId[#ansSt.index]}" />
+							<s:if test="%{#ansSt.index != 0}">
+								<button type="button" onclick="deleteForm(answer_form%{#ansSt.index + 1})">削除</button>
+							</s:if>
+						</div>
+					</s:iterator>
 				</div>
 			</div>
 			<div class="bottom_btn_area">
