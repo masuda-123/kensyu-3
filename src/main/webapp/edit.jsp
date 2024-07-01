@@ -83,7 +83,7 @@
 							<s:textfield name="inputAnswers" value="%{answers[#ansSt.index]}" />
 							<s:hidden name="answersId" value="%{answersId[#ansSt.index]}" />
 							<s:if test="%{#ansSt.index != 0}">
-								<button type="button" onclick="deleteForm(answer_form%{#ansSt.index + 1})">削除</button>
+								<button type="button" onclick="deleteForm(answer_form${ansSt.count})">削除</button>
 							</s:if>
 						</div>
 					</s:iterator>

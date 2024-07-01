@@ -37,6 +37,7 @@
 			<div class="question_id_area">
 				<label>問題番号:</label>
 				<p><s:property value="questionId"/></p>
+				<s:hidden name="questionId" value="%{questionId}"/>
 			</div>
 			<div class="question_area">
 				<label>問題:</label>
@@ -50,6 +51,7 @@
 						<p><s:property /></p>
 					</s:iterator>
 					<s:hidden name="inputAnswers" value="%{inputAnswers}"/>
+					<s:hidden name="answersId" value="%{answersId}"/>
 				</div>
 			</div>
 			<div class="bottom_btn_area">

@@ -70,7 +70,7 @@
 				<label for="inputAnswers">答え:</label>
 				<div class="answer_forms">
 					<div class="answer_form" id="answer_form1">
-						<s:textfield name = "inputAnswers"/>
+						<s:textfield name="inputAnswers"/>
 					</div>
 				</div>
 			</div>

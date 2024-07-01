@@ -1,6 +1,8 @@
 package kensyu3.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import kensyu3.model.AnswersBean;
 import kensyu3.model.AnswersDao;
@@ -18,6 +20,7 @@ public class QuestionsAnswersAction extends Base{
 	private int questionId;
 	private String question;
 	private String[] answers;
+	private int[] answersId;
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -132,6 +135,41 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//編集処理
+	public String edit_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			QuestionsDao queDao = new QuestionsDao();
+			AnswersDao ansDao = new AnswersDao();
+			//問題を編集
+			queDao.update(inputQuestion,questionId);
+			
+			//問題idから答えデータを取得
+			ArrayList<AnswersBean> aList = ansDao.findByQuestionId(questionId);
+			
+			//フォームから渡された答えの数だけ処理を繰り返す
+			for(int i = 0; i < inputAnswers.length; i++) {
+				if( i < answersId.length) { //フォームから渡された答えの中に、idを持つものがあった場合（更新された答えがあった場合）
+					ansDao.update_answer(answersId[i], inputAnswers[i]); //答えを更新
+				} else { //idを持たない答えがあった場合（新たに追加された答えがあった場合）
+					ansDao.register_answer(questionId, inputAnswers[i]); //答えを登録
+				}
+			}
+			if(aList.size() > answersId.length) { //既存の答えの数の方が、フォームから渡されたidの数より多かった場合（削除された答えがあった場合）
+				for(AnswersBean ans : aList) { //既存の答えの数だけ、処理を繰り返す
+					if(!(Arrays.stream(answersId).anyMatch(x -> x == ans.getId()))){ //既存の答えにしかないidがあった場合
+						ansDao.delete_answer(ans.getId()); //答えを削除
+					}
+				}
+			}
+			//list画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
 		//queListが空だった場合
 		if (queList.isEmpty()) {
@@ -203,14 +241,36 @@ public class QuestionsAnswersAction extends Base{
 			//questionIdから答えのデータを取得
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
 			//答えを一時的に入れる配列
-			String[] tempAnswers = new String[ans.size()];
+			String[] tmpAnswers = new String[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
 				//答えデータから答えを取得し、配列に格納
-				tempAnswers[i] = ans.get(i).getAnswer();
+				tmpAnswers[i] = ans.get(i).getAnswer();
 			}
 			//aanswersに配列になっている答えを入れ直す
-			answers = tempAnswers;
+			answers = tmpAnswers;
 		}
 		return answers;
+	}
+	
+	public int[] getAnswersId() throws Exception{
+		//answersIdが0だった場合
+		if (answersId == null) {
+			AnswersDao ansDao = new AnswersDao();
+			//questionIdから答えデータを取得
+			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
+			//答えidを一時的に入れる配列
+			int[] tmpAnswersId = new int[ans.size()];
+			for(int i = 0; i < ans.size(); i++) {
+				//答えデータから答えを取得し、配列に格納
+				tmpAnswersId[i] = ans.get(i).getId();
+			}
+			//aanswersに配列になっている答えを入れ直す
+			answersId = tmpAnswersId;
+		}
+		return answersId;
+	}
+	
+	public void setAnswersId(String answersId) {
+		this.answersId = Stream.of(answersId.split(", ")).mapToInt(Integer::parseInt).toArray();
 	}
 }
