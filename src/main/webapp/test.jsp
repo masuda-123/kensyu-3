@@ -33,11 +33,11 @@
 		<!-- 問題が登録されている場合  -->
 		<s:else>
 			<s:form action="result">
-				<s:iterator value="queList" status="queSt">
+				<s:iterator value="%{randomQueList}" status="queSt">
 					<div class="test_question_area">
 						<label>${queSt.count}</label>
 						<p><s:property value="question"/></p>
-						<s:hidden name="questionId" value="%{queList.get(#queSt.index).getId()}"/>
+						<s:hidden name="questionId" value="%{randomQueList.get(#queSt.index).getId()}"/>
 					</div>
 					<div class="test_answers_area">
 						<label for="answer">回答</label>

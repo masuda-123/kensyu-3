@@ -2,6 +2,7 @@ package kensyu3.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 import kensyu3.model.AnswersBean;
@@ -21,6 +22,7 @@ public class QuestionsAnswersAction extends Base{
 	private String question;
 	private String[] answers;
 	private int[] answersId;
+	private ArrayList<QuestionsBean> randomQueList = new ArrayList<QuestionsBean>();
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -293,4 +295,17 @@ public class QuestionsAnswersAction extends Base{
 		//answersIdを配列にして、int型に変換
 		this.answersId = Stream.of(answersId.split(", ")).mapToInt(Integer::parseInt).toArray();
 	}
+	
+	public ArrayList<QuestionsBean> getRandomQueList() throws Exception {
+		//randomQueListが空だった場合
+		if (randomQueList.isEmpty()) {
+			QuestionsDao queDao = new QuestionsDao();
+			//問題データを全件取得
+			randomQueList = queDao.findAll();
+			//ランダムに並び替える
+			Collections.shuffle(randomQueList);
+		}
+		return randomQueList;
+	}
+
 }
