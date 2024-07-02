@@ -58,7 +58,7 @@
 				<button type="button" onclick="history.back()">戻る</button>
 				<!-- エラーメッセージがない場合、登録ボタンを表示  -->
 				<s:if test="%{#errorMessage.isEmpty()}">
-					<s:submit value = "登録"/>
+					<s:submit value = "更新"/>
 				</s:if>
 			</div>
 		</s:form>
