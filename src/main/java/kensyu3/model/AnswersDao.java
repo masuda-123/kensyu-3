@@ -94,7 +94,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 *  指定answerのレコードを取得する
 	 */
-	public ArrayList<AnswersBean> search_answer(String input_answer) throws Exception {
+	public ArrayList<AnswersBean> findByAnswer(String input_answer) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();

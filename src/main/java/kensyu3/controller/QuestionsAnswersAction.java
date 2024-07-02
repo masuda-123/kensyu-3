@@ -23,6 +23,7 @@ public class QuestionsAnswersAction extends Base{
 	private String[] answers;
 	private int[] answersId;
 	private ArrayList<QuestionsBean> randomQueList = new ArrayList<QuestionsBean>();
+	private int score;
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -189,6 +190,59 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//採点結果画面を表示
+	public String result() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			int correctCnt = 0;
+			
+			//questionIdの要素数分だけ処理を繰り返す
+			for(int i = 0; i < randomQueList.size(); i++) {
+				AnswersDao ansDao = new AnswersDao();
+				//search_answerメソッドを呼び出して、answerと一致するレコードを取得
+				ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
+				
+				//ansListの要素数分だけ繰り返す
+				for(AnswersBean ans : aList ) {
+					//入力された答えと一致するレコードがあり、答えに紐づく問題idが一致する場合
+					if(ans.getId() != 0 && ans.getQuestionsId() == randomQueList.get(i).getId()) {
+						//正解の問題数をカウントアップ
+						correctCnt ++;
+						//繰り返し処理を抜ける
+						break;
+					}
+				}
+			}
+			//点数を計算
+			score = Math.round(100 * correctCnt / randomQueList.size());
+//			
+//			//セッションの取得
+//			HttpSession session = request.getSession(false);
+//			//セッションからuserIdを取得し、変数に格納
+//			int userId = (int)session.getAttribute("userId");
+//			
+//			HistoriesDao hisDao = new HistoriesDao();
+//			//register_historyメソッドを呼び出し、履歴を登録
+//			hisDao.register_history(userId, point);
+//			
+//			UsersDao dao = new UsersDao();
+//			//sarch_idメソッドを呼び出し、userIdと一致するレコードを取得
+//			UsersBean user = dao.search_id(userId);
+//			
+//			//次の遷移先の表示に必要な値をリクエストスコープにセット
+//			request.setAttribute("correctQueCnt", correctQueCnt);
+//			request.setAttribute("queCnt", questionsId.length);
+//			request.setAttribute("point", point);
+//			request.setAttribute("userName", user.getName());
+//			request.setAttribute("date", hisDao.getStringCurrentTimestamp());
+//			
+			//reult画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
 	
 	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
@@ -306,6 +360,10 @@ public class QuestionsAnswersAction extends Base{
 			Collections.shuffle(randomQueList);
 		}
 		return randomQueList;
+	}
+	
+	public int getPoint() {
+		return score;
 	}
 
 }
