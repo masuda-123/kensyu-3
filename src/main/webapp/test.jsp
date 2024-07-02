@@ -11,9 +11,13 @@
 			p {margin: 0;}
 			label {margin-right: 10px;}
 			.test_question_area p {width: 91%; overflow-wrap: break-word;}
+			.test_question_area label, .test_answers_area label {width: 7%; text-align: center;}
+			.test_question_area {margin-top: 10px; display: flex;}
+			.test_answers_area {margin-top: 10px; display: flex;}
 			.test_answer_form {width: 100%;}
 			.test_answer_form input {width: 98.6%; height: 20px;}
-			.btn_area, .bottom_menu_area {width: 100%; text-align: right;}
+			.btn_area {width: 100%; text-align: right;}
+			.bottom_btn_area {text-align: right; margin-top: 10px;}
 		</style>
 	</head>
 	<body>
