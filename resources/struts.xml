@@ -44,5 +44,17 @@
 			<result name="success">/list.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="edit" class="kensyu3.controller.QuestionsAnswersAction" method="edit">
+			<result name="success">/edit.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="edit_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="edit_confirm">
+			<result name="success">/edit_confirm.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="edit_complete" class="kensyu3.controller.QuestionsAnswersAction" method="edit_complete">
+			<result name="success">/list.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>

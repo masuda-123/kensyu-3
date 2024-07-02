@@ -133,6 +133,46 @@ public class AnswersDao extends ConnectionDao {
 	}
 	
 	/**
+	 *  指定idのレコードを取得する
+	 */
+	public AnswersBean findById(int answerId) throws Exception {
+		//DBと接続がない場合、接続
+		if (con == null) {
+			setConnection();
+		}
+		//correct_answers からidとquestions_id、answerを取得（条件：idが一致するもの）
+		String sql = "SELECT id, questions_id, answer FROM correct_answers WHERE id = ? ";
+		
+		/** PreparedStatement オブジェクトの取得**/
+		try(PreparedStatement st = con.prepareStatement(sql)) {
+			//sqlの ? に値をセット
+			st.setInt(1, answerId);
+			/** SQL 実行 **/
+			ResultSet rs = st.executeQuery();
+			/** select文の結果をオブジェクトに格納 **/ 
+			AnswersBean bean = new AnswersBean();
+			//実行結果を1行ずつ読み込む
+			while (rs.next()) {
+				//実行結果からデータを取得し、各フィールドに格納
+				int id = rs.getInt("id");
+				String answer = rs.getString("answer");
+				int questions_id = rs.getInt("questions_id");
+				//オブジェクトに実行結果を格納
+				bean.setId(id);
+				bean.setAnswer(answer);
+				bean.setQuestionsId(questions_id);
+			}
+			//オブジェクトを返す
+			return bean;
+		} catch (Exception e) {
+			//スタックトレースを出力
+			e.printStackTrace();
+			//例外を投げる
+			throw new DAOException("レコードの取得に失敗しました");
+		}
+	}
+	
+	/**
 	 * 答えを登録する
 	*/
 	public void register(int questionId, String[] answers) throws Exception {

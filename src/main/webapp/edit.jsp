@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>register</title>
+		<title>edit</title>
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
@@ -21,9 +21,13 @@
 			.answer_form {display: flex; margin-bottom: 10px; height: 26px;}
 			.answer_form input {display: block; width: 85%;}
 			.answer_form button {display: block; margin-left: 10px;}
+			.question_id_area {display: flex;}
+			.question_id_area label {width: 11%; text-align: right;}
 		</style>
+		<s:set var="answer_length" value="answers.length"/>
 		<script type="text/javascript">
-			var i = 1;
+			//iの初期値を答えの数に設定
+			var i = ${answer_length};
 			function addForm() {
 				//答えのフォームとボタンを含むdivタグを作成
 				var answer_form = document.createElement('div');
@@ -61,17 +65,29 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-			<s:form action="register_confirm">
+		<s:form action="edit_confirm">
+			<div class="question_id_area">
+				<label>問題番号:</label>
+				<p><s:property value="questionId"/></p>
+				<s:hidden name="questionId" value="%{questionId}" />
+			</div>
 			<div class="question_form_area">
 				<label for="inputQuestion">問題:</label>
-				<s:textarea name="inputQuestion"/>
+				<s:textarea name="inputQuestion" value="%{question}"/>
 			</div>
 			<div class="answer_forms_area">
 				<label for="inputAnswers">答え:</label>
 				<div class="answer_forms">
-					<div class="answer_form" id="answer_form1">
-						<s:textfield name="inputAnswers"/>
-					</div>
+					<s:iterator value="answers" status="ansSt">
+						<div class="answer_form" id="answer_form${ansSt.count}">
+							<s:textfield name="inputAnswers" value="%{answers[#ansSt.index]}" />
+							<s:hidden name="answersId" value="%{answersId[#ansSt.index]}" />
+							<!-- 2つ目以降に表示されている答えフォームには削除ボタンを設置 -->
+							<s:if test="%{#ansSt.index != 0}">
+								<button type="button" onclick="deleteForm(answer_form${ansSt.count})">削除</button>
+							</s:if>
+						</div>
+					</s:iterator>
 				</div>
 			</div>
 			<div class="bottom_btn_area">
