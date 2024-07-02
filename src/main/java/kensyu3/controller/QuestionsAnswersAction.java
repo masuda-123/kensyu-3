@@ -175,6 +175,20 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//テスト画面を表示
+	public String test() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//test画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	
+	
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
 		//queListが空だった場合
 		if (queList.isEmpty()) {
