@@ -51,6 +51,7 @@ public class ConnectionDao {
 		return strTimestamp;
 	}
 	
+	//DBの接続を閉じる
 	public void close() throws SQLException{
 		//接続先の情報がある場合には、接続をクローズし、変数を空にする
 		if(con != null) {

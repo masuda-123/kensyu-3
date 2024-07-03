@@ -35,7 +35,7 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		}
 		
 		//idをもとにユーザーを取得
-		UsersBean user = usersDao.search_id(userId);
+		UsersBean user = usersDao.findById(userId);
 		PasswordEncrypter passwordEncyoter = new PasswordEncrypter();
 		
 		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードを暗号化したものと一致する場合
