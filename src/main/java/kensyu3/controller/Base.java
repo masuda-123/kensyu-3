@@ -8,7 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class Base extends ActionSupport implements SessionAware{
 	
-	private Map<String, Object> session;
+	Map<String, Object> session;
 	
 	@Override
 	public void setSession(Map<String, Object> session) {
@@ -25,5 +25,4 @@ public class Base extends ActionSupport implements SessionAware{
 		}
 		return true;
 	}
-
 }
