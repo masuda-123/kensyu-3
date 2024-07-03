@@ -37,7 +37,7 @@
 					<div class="test_question_area">
 						<label>${queSt.count}</label>
 						<p><s:property value="question"/></p>
-						<s:hidden name="questionId" value="%{randomQueList.get(#queSt.index).getId()}"/>
+						<s:hidden name="questionsId" value="%{randomQueList.get(#queSt.index).getId()}"/>
 					</div>
 					<div class="test_answers_area">
 						<label for="answer">回答</label>

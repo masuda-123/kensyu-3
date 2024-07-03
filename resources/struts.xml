@@ -60,5 +60,9 @@
 			<result name="success">/test.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="result" class="kensyu3.controller.QuestionsAnswersAction" method="result">
+			<result name="success">/result.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>
