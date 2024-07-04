@@ -9,7 +9,7 @@
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
-			.btn_area {width: 100%; text-align: right;}
+			.btn_area {width: 100%; text-align: right; margin-top: 10px;}
 			label {margin-right: 10px;}
 			.new_btn {text-decoration: none; position: relative; width: 10%; padding: 12px 3px; display: block; margin: 10px auto;}
 			.new_btn button {position: absolute; inset: 0;}
