@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!-- Struts2のタグライブラリを使用可能にする -->
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
@@ -42,15 +42,15 @@
 				 	<th>得点</th>
 				 	<th>採点時間</th>
 				 </tr>
-				 <s:iterator value="%{hisList}">
+				 <s:iterator value="%{hisList}" status="hisSt">
 					 <tr>
 					 	<!-- ユーザー名を表示  -->
 					 	<td><s:property value="userName"/></td>
 					 	<td><s:property value="point"/>点</td>
-					 	<td><s:property value="sdf.format(createdAt())"/></td>
+					 	<td><s:property value="dateTime[#hisSt.index]"/></td>
 					 </tr>
 				</s:iterator>
 			</table>
-		<s:else>
+		</s:else>
 	</body>
 </html>

@@ -16,9 +16,9 @@ public class HistoriesDao extends ConnectionDao {
 	}
 	
 	/**
-	 * 指定IDのレコードを取得する
+	 * 指定useridのレコードを取得する
 	 */
-	public ArrayList<HistoriesBean> search_userId(int currentUserId) throws Exception {
+	public ArrayList<HistoriesBean> findByUserId(int currentUserId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
