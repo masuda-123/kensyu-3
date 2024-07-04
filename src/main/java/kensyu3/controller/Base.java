@@ -10,6 +10,7 @@ public class Base extends ActionSupport implements SessionAware{
 	
 	Map<String, Object> session;
 	
+	//セッションのsetter
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;

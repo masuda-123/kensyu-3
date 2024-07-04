@@ -207,7 +207,7 @@ public class QuestionsAnswersAction extends Base{
 	public String result() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//reult画面に遷移
+			//result画面に遷移
 			return "success";
 		}else {
 			//login画面に遷移
