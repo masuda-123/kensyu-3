@@ -24,6 +24,7 @@
 		<p>${queCnt}問中<s:property value="correctCnt"/>問正解です。</p>
 		<p><s:property value="score"/>点でした。</p>
 		<div class=bottom_menu_area">
+			<p><s:property value="currentDateTime"/></p>
 			<a href="<s:url action='history'/>">採点結果履歴へ</a>
 		</div>
 	</body>

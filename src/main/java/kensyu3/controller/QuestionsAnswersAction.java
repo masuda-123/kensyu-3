@@ -1,5 +1,7 @@
 package kensyu3.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +32,7 @@ public class QuestionsAnswersAction extends Base{
 	private String errorMessage;
 	private int score;
 	private int correctCnt;
+	private String currentDateTime;
 	
 	/*
 	 *  アクションの定義
@@ -392,6 +395,17 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}
 		return correctCnt;
+	}
+	
+	//現在日時のgetter
+	public String getCurrentDateTime() {
+		//現在の日時をtimestampに格納
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		//日時のフィーマットを指定
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		currentDateTime = sdf.format(timestamp);
+		//yyyy/MM/dd 形式の現在日時を返す
+		return currentDateTime;
 	}
 
 }

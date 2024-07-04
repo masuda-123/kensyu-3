@@ -3,8 +3,6 @@ package kensyu3.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 public class ConnectionDao {
 	////接続に必要な変数を宣言し、値を格納
@@ -38,17 +36,6 @@ public class ConnectionDao {
 			e.printStackTrace();
 			throw new Exception();
 		}
-	}
-	
-	//現在日時を取得
-	public String getStringCurrentTimestamp() {
-		//現在の日時をtimestampに格納
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//日時のフィーマットを指定
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		String strTimestamp = sdf.format(timestamp);
-		//yyyy/MM/dd 形式の現在日時を返す
-		return strTimestamp;
 	}
 	
 	//DBの接続を閉じる
