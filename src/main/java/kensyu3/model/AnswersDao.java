@@ -47,6 +47,14 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 	
@@ -88,13 +96,21 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 	
 	/**
 	 *  指定answerのレコードを取得する
 	 */
-	public ArrayList<AnswersBean> search_answer(String input_answer) throws Exception {
+	public ArrayList<AnswersBean> findByAnswer(String input_answer) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -129,6 +145,14 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 	
@@ -169,6 +193,14 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 	
@@ -198,7 +230,15 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの登録に失敗しました");
-		}	
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
 	}
 	
 	/**
@@ -223,6 +263,14 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの削除に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 	
@@ -249,7 +297,15 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの更新に失敗しました");
-		}	
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
 	}
 	
 	/**
@@ -275,7 +331,15 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの登録に失敗しました");
-		}	
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
 	}
 	
 	/**
@@ -300,6 +364,14 @@ public class AnswersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの削除に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 }

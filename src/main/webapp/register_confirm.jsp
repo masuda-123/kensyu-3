@@ -9,7 +9,7 @@
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
-			.btn_area {width: 100%; text-align: right;}
+			.btn_area {width: 100%; text-align: right; margin-top: 10px;}
 			.bottom_btn_area {text-align: right; margin-top: 10px;}
 			label {margin-right: 10px;}
 			.question_area label, .answers_area label {width: 7%; text-align: right;}

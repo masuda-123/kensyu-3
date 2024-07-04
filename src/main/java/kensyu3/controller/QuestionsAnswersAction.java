@@ -1,26 +1,42 @@
 package kensyu3.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 import kensyu3.model.AnswersBean;
 import kensyu3.model.AnswersDao;
 import kensyu3.model.QuestionsBean;
 import kensyu3.model.QuestionsDao;
+import kensyu3.model.UsersBean;
+import kensyu3.model.UsersDao;
 import kensyu3.other.Validation;
 
 public class QuestionsAnswersAction extends Base{
+	
 	//jspファイルから受け取る値の定義
-	private String inputQuestion;
-	private String[] inputAnswers;
 	private ArrayList<QuestionsBean> queList = new ArrayList<QuestionsBean>();
 	private ArrayList<ArrayList<AnswersBean>> ansList = new ArrayList<>();
-	private String errorMessage;
-	private int questionId;
+	private ArrayList<QuestionsBean> randomQueList = new ArrayList<QuestionsBean>();
 	private String question;
 	private String[] answers;
+	private int questionId;
 	private int[] answersId;
+	private int[] questionsId;
+	private String inputQuestion;
+	private String[] inputAnswers;
+	private String userName;
+	private String errorMessage;
+	private int score;
+	private int correctCnt;
+	private String currentDateTime;
+	
+	/*
+	 *  アクションの定義
+	 */
 	
 	//list画面を表示
 	public String list() throws Exception{
@@ -175,6 +191,36 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
+	//テスト画面を表示
+	public String test() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//test画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	//採点結果画面を表示
+	public String result() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//result画面に遷移
+			return "success";
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
+	
+	/*
+	 *  getter、setterの定義
+	 */
+	
+	//全問題のgetter
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
 		//queListが空だった場合
 		if (queList.isEmpty()) {
@@ -185,6 +231,7 @@ public class QuestionsAnswersAction extends Base{
 		return queList;
 	}
 	
+	//全答えのgetter
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() throws Exception{
 		//ansListが空だった場合
 		if (ansList.isEmpty()) {
@@ -198,35 +245,20 @@ public class QuestionsAnswersAction extends Base{
 		return ansList;
 	}
 	
-	public String getInputQuestion() {
-		return inputQuestion;
+	//ランダムな問題のgetter
+	public ArrayList<QuestionsBean> getRandomQueList() throws Exception {
+		//randomQueListが空だった場合
+		if (randomQueList.isEmpty()) {
+			QuestionsDao queDao = new QuestionsDao();
+			//問題データを全件取得
+			randomQueList = queDao.findAll();
+			//ランダムに並び替える
+			Collections.shuffle(randomQueList);
+		}
+		return randomQueList;
 	}
 	
-	public void setInputQuestion(String inputQuestion) {
-		this.inputQuestion = inputQuestion;
-	}
-	
-	
-	public String[] getInputAnswers() {
-		return inputAnswers;
-	}
-	
-	public void setInputAnswers(String inputAnswers) {
-		this.inputAnswers = inputAnswers.split(", ");
-	}
-	
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-	
-	public int getQuestionId() {
-		return questionId;
-	}
-	
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
-	}
-	
+	//問題のgetter
 	public String getQuestion() throws Exception{
 		//questionがnullだった場合
 		if (question == null) {
@@ -239,6 +271,7 @@ public class QuestionsAnswersAction extends Base{
 		return question;
 	}
 	
+	//答えのgetter
 	public String[] getAnswers() throws Exception {
 		//answersがnullだった場合
 		if (answers == null) {
@@ -251,12 +284,23 @@ public class QuestionsAnswersAction extends Base{
 				//答えデータから答えを取得し、配列に格納
 				tmpAnswers[i] = ans.get(i).getAnswer();
 			}
-			//aanswersに配列になっている答えを入れ直す
+			//answersに配列となった答えを入れ直す
 			answers = tmpAnswers;
 		}
 		return answers;
 	}
 	
+	//問題idのgetter
+	public int getQuestionId() {
+		return questionId;
+	}
+	
+	//問題idのsetter
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+	
+	//答えidのgetter
 	public int[] getAnswersId() throws Exception{
 		//answersIdが0だった場合
 		if (answersId == null) {
@@ -275,8 +319,93 @@ public class QuestionsAnswersAction extends Base{
 		return answersId;
 	}
 	
+	//答えidのsetter
 	public void setAnswersId(String answersId) {
 		//answersIdを配列にして、int型に変換
 		this.answersId = Stream.of(answersId.split(", ")).mapToInt(Integer::parseInt).toArray();
 	}
+	
+	//問題id（複数）のsetter
+	public void setQuestionsId(String questionsId) {
+		this.questionsId = Stream.of(questionsId.split(", ")).mapToInt(Integer::parseInt).toArray();
+	}
+	
+	//問題id（複数）のgetter
+	public int[] getQuestionsId() {
+		return questionsId;
+	}
+	
+	
+	//フォームから入力した問題のgetter
+	public String getInputQuestion() {
+		return inputQuestion;
+	}
+	
+	//フォームから入力した問題のsetter
+	public void setInputQuestion(String inputQuestion) {
+		this.inputQuestion = inputQuestion;
+	}
+	
+	//フォームから入力した答えのgetter
+	public String[] getInputAnswers() {
+		return inputAnswers;
+	}
+	
+	//フォームから入力した答えのsetter
+	public void setInputAnswers(String inputAnswers) {
+		this.inputAnswers = inputAnswers.split(", ");
+	}
+	
+	//エラーメッセージのgetter
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+	
+	//現在ログインしているユーザー名のgetter
+	public String getUserName() throws Exception{
+		UsersDao usersDao = new UsersDao();
+		UsersBean user = usersDao.findById((int)session.get("userId"));
+		userName = user.getName();
+		return userName;
+	}
+	
+	//点数のgetter
+	public int getScore() {
+		//点数を計算
+		score = Math.round(100 * correctCnt / questionsId.length);
+		return score;
+	}
+	
+	//正答数のgetter
+	public int getCorrectCnt() throws Exception {
+		//入力された答えの数だけ処理を繰り返す
+		for(int i = 0; i < inputAnswers.length; i++) {
+			AnswersDao ansDao = new AnswersDao();
+			//入力された答えと一致するレコードを取得
+			ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
+			//取得したレコードの数だけ繰り返す
+			for(AnswersBean ans : aList ) {
+				//答えに紐づく問題idが一致する場合
+				if(ans.getQuestionsId() == questionsId[i]) {
+					//正解の問題数をカウントアップ
+					correctCnt ++;
+					//繰り返し処理を抜ける
+					break;
+				}
+			}
+		}
+		return correctCnt;
+	}
+	
+	//現在日時のgetter
+	public String getCurrentDateTime() {
+		//現在の日時をtimestampに格納
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		//日時のフィーマットを指定
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		currentDateTime = sdf.format(timestamp);
+		//yyyy/MM/dd 形式の現在日時を返す
+		return currentDateTime;
+	}
+
 }

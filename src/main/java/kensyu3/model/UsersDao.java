@@ -47,13 +47,21 @@ public class UsersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 	
 	/**
 	 * 指定IDのレコードを取得する
 	 */
-	public UsersBean search_id(int userId) throws Exception {
+	public UsersBean findById(int userId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -87,6 +95,14 @@ public class UsersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの取得に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
 		}
 	}
 }
