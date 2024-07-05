@@ -36,7 +36,6 @@
 				 </tr>
 				 <s:iterator value="%{hisList}" status="hisSt">
 					 <tr>
-					 	<!-- ユーザー名を表示  -->
 					 	<td><s:property value="userName"/></td>
 					 	<td><s:property value="point"/>点</td>
 					 	<td><s:property value="dateTime[#hisSt.index]"/></td>

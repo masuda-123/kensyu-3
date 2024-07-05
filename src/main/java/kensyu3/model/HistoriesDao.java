@@ -60,7 +60,7 @@ public class HistoriesDao extends ConnectionDao {
 	/**
 	 * 履歴を登録する
 	 */
-	public void register_history(int userId, int point) throws Exception {
+	public void register(int userId, int point) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();

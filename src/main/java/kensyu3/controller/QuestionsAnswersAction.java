@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import kensyu3.model.AnswersBean;
 import kensyu3.model.AnswersDao;
+import kensyu3.model.HistoriesDao;
 import kensyu3.model.QuestionsBean;
 import kensyu3.model.QuestionsDao;
 import kensyu3.model.UsersBean;
@@ -30,7 +31,7 @@ public class QuestionsAnswersAction extends Base{
 	private String[] inputAnswers;
 	private String userName;
 	private String errorMessage;
-	private int score;
+	private int point;
 	private int correctCnt;
 	private String currentDateTime;
 	
@@ -203,10 +204,31 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//採点結果画面を表示
+	//履歴の登録と採点結果履歴画面の表示
 	public String result() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
+			//入力された答えの数だけ処理を繰り返す
+			for(int i = 0; i < inputAnswers.length; i++) {
+				AnswersDao ansDao = new AnswersDao();
+				//入力された答えと一致するレコードを取得
+				ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
+				//取得したレコードの数だけ繰り返す
+				for(AnswersBean ans : aList ) {
+					//答えに紐づく問題idが一致する場合
+					if(ans.getQuestionsId() == questionsId[i]) {
+						//正解の問題数をカウントアップ
+						correctCnt ++;
+						//繰り返し処理を抜ける
+						break;
+					}
+				}
+			}
+			//点数を計算
+			point = Math.round(100 * correctCnt / questionsId.length);
+			HistoriesDao hisDao = new HistoriesDao();
+			//履歴を登録
+			hisDao.register((int)session.get("userId"), point);
 			//result画面に遷移
 			return "success";
 		}else {
@@ -361,40 +383,23 @@ public class QuestionsAnswersAction extends Base{
 		return errorMessage;
 	}
 	
+	
+	//点数のgetter
+	public int getPoint() {
+		return point;
+	}
+	
+	//正答数のgetter
+	public int getCorrectCnt() throws Exception {
+		return correctCnt;
+	}
+	
 	//現在ログインしているユーザー名のgetter
 	public String getUserName() throws Exception{
 		UsersDao usersDao = new UsersDao();
 		UsersBean user = usersDao.findById((int)session.get("userId"));
 		userName = user.getName();
 		return userName;
-	}
-	
-	//点数のgetter
-	public int getScore() {
-		//点数を計算
-		score = Math.round(100 * correctCnt / questionsId.length);
-		return score;
-	}
-	
-	//正答数のgetter
-	public int getCorrectCnt() throws Exception {
-		//入力された答えの数だけ処理を繰り返す
-		for(int i = 0; i < inputAnswers.length; i++) {
-			AnswersDao ansDao = new AnswersDao();
-			//入力された答えと一致するレコードを取得
-			ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
-			//取得したレコードの数だけ繰り返す
-			for(AnswersBean ans : aList ) {
-				//答えに紐づく問題idが一致する場合
-				if(ans.getQuestionsId() == questionsId[i]) {
-					//正解の問題数をカウントアップ
-					correctCnt ++;
-					//繰り返し処理を抜ける
-					break;
-				}
-			}
-		}
-		return correctCnt;
 	}
 	
 	//現在日時のgetter
