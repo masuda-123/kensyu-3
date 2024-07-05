@@ -204,7 +204,7 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//履歴の登録と採点結果履歴画面の表示
+	//履歴の登録処理と採点結果履歴画面の表示
 	public String result() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
@@ -226,6 +226,7 @@ public class QuestionsAnswersAction extends Base{
 			}
 			//点数を計算
 			point = Math.round(100 * correctCnt / questionsId.length);
+			
 			HistoriesDao hisDao = new HistoriesDao();
 			//履歴を登録
 			hisDao.register((int)session.get("userId"), point);
@@ -300,14 +301,11 @@ public class QuestionsAnswersAction extends Base{
 			AnswersDao ansDao = new AnswersDao();
 			//questionIdから答えのデータを取得
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
-			//答えを一時的に入れる配列
-			String[] tmpAnswers = new String[ans.size()];
+			answers = new String[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
 				//答えデータから答えを取得し、配列に格納
-				tmpAnswers[i] = ans.get(i).getAnswer();
+				answers[i] = ans.get(i).getAnswer();
 			}
-			//answersに配列となった答えを入れ直す
-			answers = tmpAnswers;
 		}
 		return answers;
 	}
@@ -329,14 +327,11 @@ public class QuestionsAnswersAction extends Base{
 			AnswersDao ansDao = new AnswersDao();
 			//questionIdから答えデータを取得
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
-			//答えidを一時的に入れる配列
-			int[] tmpAnswersId = new int[ans.size()];
+			answersId = new int[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
 				//答えデータから答えを取得し、配列に格納
-				tmpAnswersId[i] = ans.get(i).getId();
+				answersId[i] = ans.get(i).getId();
 			}
-			//aanswersに配列になっている答えを入れ直す
-			answersId = tmpAnswersId;
 		}
 		return answersId;
 	}
@@ -356,7 +351,6 @@ public class QuestionsAnswersAction extends Base{
 	public int[] getQuestionsId() {
 		return questionsId;
 	}
-	
 	
 	//フォームから入力した問題のgetter
 	public String getInputQuestion() {
@@ -383,7 +377,6 @@ public class QuestionsAnswersAction extends Base{
 		return errorMessage;
 	}
 	
-	
 	//点数のgetter
 	public int getPoint() {
 		return point;
@@ -396,9 +389,14 @@ public class QuestionsAnswersAction extends Base{
 	
 	//現在ログインしているユーザー名のgetter
 	public String getUserName() throws Exception{
-		UsersDao usersDao = new UsersDao();
-		UsersBean user = usersDao.findById((int)session.get("userId"));
-		userName = user.getName();
+		//userNameが空だった場合
+		if(userName == null) {
+			UsersDao usersDao = new UsersDao();
+			//セッションに登録されているidをもとに、ユーザーを取得
+			UsersBean user = usersDao.findById((int)session.get("userId"));
+			//ユーザー情報からユーザー名を取得し、格納
+			userName = user.getName();
+		}
 		return userName;
 	}
 	
@@ -409,7 +407,6 @@ public class QuestionsAnswersAction extends Base{
 		//日時のフィーマットを指定
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		currentDateTime = sdf.format(timestamp);
-		//yyyy/MM/dd 形式の現在日時を返す
 		return currentDateTime;
 	}
 
