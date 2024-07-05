@@ -245,7 +245,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//全問題のgetter
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
-		//queListが空だった場合
+		//queListに値が格納されていない場合
 		if (queList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
 			//問題データを全件取得
@@ -256,7 +256,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//全答えのgetter
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() throws Exception{
-		//ansListが空だった場合
+		//ansListに値が格納されていない場合
 		if (ansList.isEmpty()) {
 			AnswersDao ansDao = new AnswersDao();
 			//答えデータを全件取得
@@ -270,7 +270,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//ランダムな問題のgetter
 	public ArrayList<QuestionsBean> getRandomQueList() throws Exception {
-		//randomQueListが空だった場合
+		//randomQueListに値が格納されていない場合
 		if (randomQueList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
 			//問題データを全件取得
@@ -283,7 +283,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//問題のgetter
 	public String getQuestion() throws Exception{
-		//questionがnullだった場合
+		//questionに値が格納されていない場合
 		if (question == null) {
 			QuestionsDao queDao = new QuestionsDao();
 			//questionIdから問題文データを取得
@@ -296,7 +296,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//答えのgetter
 	public String[] getAnswers() throws Exception {
-		//answersがnullだった場合
+		//answersに値が格納されていない場合
 		if (answers == null) {
 			AnswersDao ansDao = new AnswersDao();
 			//questionIdから答えのデータを取得
@@ -322,7 +322,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//答えidのgetter
 	public int[] getAnswersId() throws Exception{
-		//answersIdが0だった場合
+		//answersIdに値が格納されていない場合
 		if (answersId == null) {
 			AnswersDao ansDao = new AnswersDao();
 			//questionIdから答えデータを取得
@@ -389,7 +389,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//現在ログインしているユーザー名のgetter
 	public String getUserName() throws Exception{
-		//userNameが空だった場合
+		//userNameに値が格納されていない場合
 		if(userName == null) {
 			UsersDao usersDao = new UsersDao();
 			//セッションに登録されているidをもとに、ユーザーを取得
@@ -402,11 +402,14 @@ public class QuestionsAnswersAction extends Base{
 	
 	//現在日時のgetter
 	public String getCurrentDateTime() {
-		//現在の日時をtimestampに格納
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//日時のフィーマットを指定
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		currentDateTime = sdf.format(timestamp);
+		//currentDateTimeに値が格納されていない場合
+		if(currentDateTime == null) {
+			//現在の日時をtimestampに格納
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			//日時のフィーマットを指定
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			currentDateTime = sdf.format(timestamp);
+		}
 		return currentDateTime;
 	}
 
