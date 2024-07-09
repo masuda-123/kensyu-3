@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import kensyu3.model.AnswersBean;
 import kensyu3.model.AnswersDao;
+import kensyu3.model.HistoriesDao;
 import kensyu3.model.QuestionsBean;
 import kensyu3.model.QuestionsDao;
 import kensyu3.model.UsersBean;
@@ -30,7 +31,7 @@ public class QuestionsAnswersAction extends Base{
 	private String[] inputAnswers;
 	private String userName;
 	private String errorMessage;
-	private int score;
+	private int point;
 	private int correctCnt;
 	private String currentDateTime;
 	
@@ -203,10 +204,32 @@ public class QuestionsAnswersAction extends Base{
 		}
 	}
 	
-	//採点結果画面を表示
+	//履歴の登録処理と採点結果履歴画面の表示
 	public String result() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
+			//入力された答えの数だけ処理を繰り返す
+			for(int i = 0; i < inputAnswers.length; i++) {
+				AnswersDao ansDao = new AnswersDao();
+				//入力された答えと一致するレコードを取得
+				ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
+				//取得したレコードの数だけ繰り返す
+				for(AnswersBean ans : aList ) {
+					//答えに紐づく問題idが一致する場合
+					if(ans.getQuestionsId() == questionsId[i]) {
+						//正解の問題数をカウントアップ
+						correctCnt ++;
+						//繰り返し処理を抜ける
+						break;
+					}
+				}
+			}
+			//点数を計算
+			point = Math.round(100 * correctCnt / questionsId.length);
+			
+			HistoriesDao hisDao = new HistoriesDao();
+			//履歴を登録
+			hisDao.register((int)session.get("userId"), point);
 			//result画面に遷移
 			return "success";
 		}else {
@@ -222,7 +245,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//全問題のgetter
 	public ArrayList<QuestionsBean> getQueList() throws Exception {
-		//queListが空だった場合
+		//queListに値が格納されていない場合
 		if (queList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
 			//問題データを全件取得
@@ -233,7 +256,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//全答えのgetter
 	public ArrayList<ArrayList<AnswersBean>> getAnsList() throws Exception{
-		//ansListが空だった場合
+		//ansListに値が格納されていない場合
 		if (ansList.isEmpty()) {
 			AnswersDao ansDao = new AnswersDao();
 			//答えデータを全件取得
@@ -247,7 +270,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//ランダムな問題のgetter
 	public ArrayList<QuestionsBean> getRandomQueList() throws Exception {
-		//randomQueListが空だった場合
+		//randomQueListに値が格納されていない場合
 		if (randomQueList.isEmpty()) {
 			QuestionsDao queDao = new QuestionsDao();
 			//問題データを全件取得
@@ -260,7 +283,7 @@ public class QuestionsAnswersAction extends Base{
 	
 	//問題のgetter
 	public String getQuestion() throws Exception{
-		//questionがnullだった場合
+		//questionに値が格納されていない場合
 		if (question == null) {
 			QuestionsDao queDao = new QuestionsDao();
 			//questionIdから問題文データを取得
@@ -273,19 +296,16 @@ public class QuestionsAnswersAction extends Base{
 	
 	//答えのgetter
 	public String[] getAnswers() throws Exception {
-		//answersがnullだった場合
+		//answersに値が格納されていない場合
 		if (answers == null) {
 			AnswersDao ansDao = new AnswersDao();
 			//questionIdから答えのデータを取得
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
-			//答えを一時的に入れる配列
-			String[] tmpAnswers = new String[ans.size()];
+			answers = new String[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
 				//答えデータから答えを取得し、配列に格納
-				tmpAnswers[i] = ans.get(i).getAnswer();
+				answers[i] = ans.get(i).getAnswer();
 			}
-			//answersに配列となった答えを入れ直す
-			answers = tmpAnswers;
 		}
 		return answers;
 	}
@@ -302,19 +322,16 @@ public class QuestionsAnswersAction extends Base{
 	
 	//答えidのgetter
 	public int[] getAnswersId() throws Exception{
-		//answersIdが0だった場合
+		//answersIdに値が格納されていない場合
 		if (answersId == null) {
 			AnswersDao ansDao = new AnswersDao();
 			//questionIdから答えデータを取得
 			ArrayList<AnswersBean> ans = ansDao.findByQuestionId(questionId);
-			//答えidを一時的に入れる配列
-			int[] tmpAnswersId = new int[ans.size()];
+			answersId = new int[ans.size()];
 			for(int i = 0; i < ans.size(); i++) {
 				//答えデータから答えを取得し、配列に格納
-				tmpAnswersId[i] = ans.get(i).getId();
+				answersId[i] = ans.get(i).getId();
 			}
-			//aanswersに配列になっている答えを入れ直す
-			answersId = tmpAnswersId;
 		}
 		return answersId;
 	}
@@ -334,7 +351,6 @@ public class QuestionsAnswersAction extends Base{
 	public int[] getQuestionsId() {
 		return questionsId;
 	}
-	
 	
 	//フォームから入力した問題のgetter
 	public String getInputQuestion() {
@@ -361,50 +377,39 @@ public class QuestionsAnswersAction extends Base{
 		return errorMessage;
 	}
 	
-	//現在ログインしているユーザー名のgetter
-	public String getUserName() throws Exception{
-		UsersDao usersDao = new UsersDao();
-		UsersBean user = usersDao.findById((int)session.get("userId"));
-		userName = user.getName();
-		return userName;
-	}
-	
 	//点数のgetter
-	public int getScore() {
-		//点数を計算
-		score = Math.round(100 * correctCnt / questionsId.length);
-		return score;
+	public int getPoint() {
+		return point;
 	}
 	
 	//正答数のgetter
 	public int getCorrectCnt() throws Exception {
-		//入力された答えの数だけ処理を繰り返す
-		for(int i = 0; i < inputAnswers.length; i++) {
-			AnswersDao ansDao = new AnswersDao();
-			//入力された答えと一致するレコードを取得
-			ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
-			//取得したレコードの数だけ繰り返す
-			for(AnswersBean ans : aList ) {
-				//答えに紐づく問題idが一致する場合
-				if(ans.getQuestionsId() == questionsId[i]) {
-					//正解の問題数をカウントアップ
-					correctCnt ++;
-					//繰り返し処理を抜ける
-					break;
-				}
-			}
-		}
 		return correctCnt;
+	}
+	
+	//現在ログインしているユーザー名のgetter
+	public String getUserName() throws Exception{
+		//userNameに値が格納されていない場合
+		if(userName == null) {
+			UsersDao usersDao = new UsersDao();
+			//セッションに登録されているidをもとに、ユーザーを取得
+			UsersBean user = usersDao.findById((int)session.get("userId"));
+			//ユーザー情報からユーザー名を取得し、格納
+			userName = user.getName();
+		}
+		return userName;
 	}
 	
 	//現在日時のgetter
 	public String getCurrentDateTime() {
-		//現在の日時をtimestampに格納
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		//日時のフィーマットを指定
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		currentDateTime = sdf.format(timestamp);
-		//yyyy/MM/dd 形式の現在日時を返す
+		//currentDateTimeに値が格納されていない場合
+		if(currentDateTime == null) {
+			//現在の日時をtimestampに格納
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			//日時のフィーマットを指定
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			currentDateTime = sdf.format(timestamp);
+		}
 		return currentDateTime;
 	}
 
