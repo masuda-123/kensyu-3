@@ -11,7 +11,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="list" class="kensyu3.controller.QuestionsAnswersAction" method="list">
-			<result name="success">/list.jsp</result>
+			<result name="list">/list.jsp</result>
+			<result name="register">/register.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="login" class="kensyu3.controller.UsersAction" method="login">
@@ -41,7 +42,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="delete_complete" class="kensyu3.controller.QuestionsAnswersAction" method="delete_complete">
-			<result name="success">/list.jsp</result>
+			<result name="list">/list.jsp</result>
+			<result name="register">/register.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="edit" class="kensyu3.controller.QuestionsAnswersAction" method="edit">

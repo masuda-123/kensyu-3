@@ -43,8 +43,14 @@ public class QuestionsAnswersAction extends Base{
 	public String list() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//list画面に遷移
-			return "success" ;
+			//登録されている問題がある場合
+			if(!(getQueList().isEmpty())) {
+				//list画面に遷移
+				return "list" ;
+			}else {
+				//register画面に遷移
+				return "register";
+			}
 		}else {
 			//login画面に遷移
 			return "failure";
@@ -117,8 +123,14 @@ public class QuestionsAnswersAction extends Base{
 			//問題と答えを削除
 			queDao.delete(questionId);
 			ansDao.delete(questionId);
-			//list画面に遷移
-			return "success";
+			//登録されている問題がある場合
+			if(!(getQueList().isEmpty())) {
+				//list画面に遷移
+				return "list" ;
+			}else {
+				//register画面に遷移
+				return "register";
+			}
 		}else {
 			//login画面に遷移
 			return "failure";
