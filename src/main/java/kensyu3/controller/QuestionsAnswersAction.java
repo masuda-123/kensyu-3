@@ -128,8 +128,8 @@ public class QuestionsAnswersAction extends Base{
 				//list画面に遷移
 				return "list" ;
 			}else {
-				//register画面に遷移
-				return "register";
+				//top画面に遷移
+				return "top";
 			}
 		}else {
 			//login画面に遷移

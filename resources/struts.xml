@@ -43,7 +43,7 @@
 		</action>
 		<action name="delete_complete" class="kensyu3.controller.QuestionsAnswersAction" method="delete_complete">
 			<result name="list">/list.jsp</result>
-			<result name="register">/register.jsp</result>
+			<result name="top">/top.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="edit" class="kensyu3.controller.QuestionsAnswersAction" method="edit">
