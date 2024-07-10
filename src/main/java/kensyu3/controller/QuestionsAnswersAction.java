@@ -244,30 +244,36 @@ public class QuestionsAnswersAction extends Base{
 	public String result() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//入力された答えの数だけ処理を繰り返す
-			for(int i = 0; i < inputAnswers.length; i++) {
-				AnswersDao ansDao = new AnswersDao();
-				//入力された答えと一致するレコードを取得
-				ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
-				//取得したレコードの数だけ繰り返す
-				for(AnswersBean ans : aList ) {
-					//答えに紐づく問題idが一致する場合
-					if(ans.getQuestionsId() == questionsId[i]) {
-						//正解の問題数をカウントアップ
-						correctCnt ++;
-						//繰り返し処理を抜ける
-						break;
+			//テスト画面を経由したか
+			if(inputAnswers != null) {
+				//入力された答えの数だけ処理を繰り返す
+				for(int i = 0; i < inputAnswers.length; i++) {
+					AnswersDao ansDao = new AnswersDao();
+					//入力された答えと一致するレコードを取得
+					ArrayList<AnswersBean> aList = ansDao.findByAnswer(inputAnswers[i]);
+					//取得したレコードの数だけ繰り返す
+					for(AnswersBean ans : aList ) {
+						//答えに紐づく問題idが一致する場合
+						if(ans.getQuestionsId() == questionsId[i]) {
+							//正解の問題数をカウントアップ
+							correctCnt ++;
+							//繰り返し処理を抜ける
+							break;
+						}
 					}
 				}
+				//点数を計算
+				point = Math.round(100 * correctCnt / questionsId.length);
+				
+				HistoriesDao hisDao = new HistoriesDao();
+				//履歴を登録
+				hisDao.register((int)session.get("userId"), point);
+				//result画面に遷移
+				return "result";
+			}else {
+				//error画面に遷移
+				return "error";
 			}
-			//点数を計算
-			point = Math.round(100 * correctCnt / questionsId.length);
-			
-			HistoriesDao hisDao = new HistoriesDao();
-			//履歴を登録
-			hisDao.register((int)session.get("userId"), point);
-			//result画面に遷移
-			return "success";
 		}else {
 			//login画面に遷移
 			return "failure";

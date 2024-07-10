@@ -67,7 +67,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="result" class="kensyu3.controller.QuestionsAnswersAction" method="result">
-			<result name="success">/result.jsp</result>
+			<result name="result">/result.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="history" class="kensyu3.controller.HistoriesAction" method="history">
