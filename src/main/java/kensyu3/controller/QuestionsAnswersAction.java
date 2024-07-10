@@ -144,11 +144,17 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	//編集画面を表示
-	public String edit(){
+	public String edit() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//edit画面に遷移
-			return "success";
+			//パラメータで指定したquestionIdが存在するか
+			if(getQuestion() != null) {
+				//edit画面に遷移
+				return "edit";
+			}else {
+				//error画面に遷移
+				return "error";
+			}
 		}else {
 			//login画面に遷移
 			return "failure";
