@@ -73,11 +73,17 @@ public class QuestionsAnswersAction extends Base{
 	public String register_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			Validation val = new Validation();
-			//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
-			errorMessage = val.validate(inputQuestion, inputAnswers);
-			//register_confirm画面に遷移
-			return "success";
+			//登録画面を経由したか
+			if(inputQuestion != null && inputAnswers != null) {
+				Validation val = new Validation();
+				//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
+				errorMessage = val.validate(inputQuestion, inputAnswers);
+				//register_confirm画面に遷移
+				return "register_confirm";
+			}else {
+				//register画面に遷移
+				return "register";
+			}
 		}else {
 			//login画面に遷移
 			return "failure";
