@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.stream.Stream;
 
 import kensyu3.model.AnswersBean;
 import kensyu3.model.AnswersDao;
@@ -379,14 +378,13 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	//答えidのsetter
-	public void setAnswersId(String answersId) {
-		//answersIdを配列にして、int型に変換
-		this.answersId = Stream.of(answersId.split(", ")).mapToInt(Integer::parseInt).toArray();
+	public void setAnswersId(int[] answersId) {
+		this.answersId = answersId;
 	}
 	
 	//問題id（複数）のsetter
-	public void setQuestionsId(String questionsId) {
-		this.questionsId = Stream.of(questionsId.split(", ")).mapToInt(Integer::parseInt).toArray();
+	public void setQuestionsId(int[] questionsId) {
+		this.questionsId = questionsId;
 	}
 	
 	//問題id（複数）のgetter
@@ -410,8 +408,8 @@ public class QuestionsAnswersAction extends Base{
 	}
 	
 	//フォームから入力した答えのsetter
-	public void setInputAnswers(String inputAnswers) {
-		this.inputAnswers = inputAnswers.split(", ");
+	public void setInputAnswers(String[] inputAnswers) {
+		this.inputAnswers = inputAnswers;
 	}
 	
 	//エラーメッセージのgetter

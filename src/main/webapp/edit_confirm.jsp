@@ -47,11 +47,13 @@
 			<div class="answers_area">
 				<label>答え:</label>
 				<div class="answers">
-					<s:iterator value="inputAnswers">
+					<s:iterator value="inputAnswers" status="ansSt">
 						<p><s:property /></p>
+						<s:hidden name="inputAnswers" value="%{inputAnswers[#ansSt.index]}"/>
 					</s:iterator>
-					<s:hidden name="inputAnswers" value="%{inputAnswers}"/>
-					<s:hidden name="answersId" value="%{answersId}"/>
+					<s:iterator value="answersId" status="idSt">
+						<s:hidden name="answersId" value="%{answersId[#idSt.index]}"/>
+					</s:iterator>
 				</div>
 			</div>
 			<div class="bottom_btn_area">
