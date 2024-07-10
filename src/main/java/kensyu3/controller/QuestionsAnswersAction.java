@@ -81,8 +81,8 @@ public class QuestionsAnswersAction extends Base{
 				//register_confirm画面に遷移
 				return "register_confirm";
 			}else {
-				//register画面に遷移
-				return "register";
+				//error画面に遷移
+				return "error";
 			}
 		}else {
 			//login画面に遷移
@@ -165,11 +165,17 @@ public class QuestionsAnswersAction extends Base{
 	public String edit_confirm(){
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			Validation val = new Validation();
-			//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
-			errorMessage = val.validate(inputQuestion, inputAnswers);
-			//edit画面に遷移
-			return "success";
+			//編集画面を経由したか
+			if(inputQuestion != null && inputAnswers != null) {
+				Validation val = new Validation();
+				//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
+				errorMessage = val.validate(inputQuestion, inputAnswers);
+				//edit_confirm画面に遷移
+				return  "edit_confirm";
+			}else {
+				//error画面に遷移
+				return  "error";
+			}
 		}else {
 			//login画面に遷移
 			return "failure";
