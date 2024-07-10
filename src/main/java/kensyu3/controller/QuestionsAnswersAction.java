@@ -112,8 +112,14 @@ public class QuestionsAnswersAction extends Base{
 	public String delete_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//delete_confirm画面に遷移
-			return "success";
+			//パラメータで指定したquestionIdが存在するか
+			if(getQuestion() != null) {
+				//delete_confirm画面に遷移
+				return "delete_confirm";
+			}else {
+				//error画面に遷移
+				return "error";
+			}
 		}else {
 			//login画面に遷移
 			return "failure";

@@ -39,7 +39,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="delete_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="delete_confirm">
-			<result name="success">/delete_confirm.jsp</result>
+			<result name="delete_confirm">/delete_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="delete_complete" class="kensyu3.controller.QuestionsAnswersAction" method="delete_complete">
