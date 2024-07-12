@@ -11,7 +11,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="list" class="kensyu3.controller.QuestionsAnswersAction" method="list">
-			<result name="success">/list.jsp</result>
+			<result name="list">/list.jsp</result>
+			<result name="register">/register.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="login" class="kensyu3.controller.UsersAction" method="login">
@@ -29,7 +30,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="register_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="register_confirm">
-			<result name="success">/register_confirm.jsp</result>
+			<result name="register_confirm">/register_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="register_complete" class="kensyu3.controller.QuestionsAnswersAction" method="register_complete">
@@ -37,19 +39,23 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="delete_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="delete_confirm">
-			<result name="success">/delete_confirm.jsp</result>
+			<result name="delete_confirm">/delete_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="delete_complete" class="kensyu3.controller.QuestionsAnswersAction" method="delete_complete">
-			<result name="success">/list.jsp</result>
+			<result name="list">/list.jsp</result>
+			<result name="top">/top.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="edit" class="kensyu3.controller.QuestionsAnswersAction" method="edit">
-			<result name="success">/edit.jsp</result>
+			<result name="edit">/edit.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="edit_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="edit_confirm">
-			<result name="success">/edit_confirm.jsp</result>
+			<result name="edit_confirm">/edit_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="edit_complete" class="kensyu3.controller.QuestionsAnswersAction" method="edit_complete">
@@ -61,7 +67,8 @@
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="result" class="kensyu3.controller.QuestionsAnswersAction" method="result">
-			<result name="success">/result.jsp</result>
+			<result name="result">/result.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 		<action name="history" class="kensyu3.controller.HistoriesAction" method="history">

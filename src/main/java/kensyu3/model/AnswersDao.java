@@ -244,7 +244,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 * 答えを削除する
 	*/
-	public void delete(int questionId) throws Exception {
+	public void deleteByQuestionId(int questionId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -277,7 +277,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 * 答えを１件更新する
 	*/
-	public void update_answer(int answerId, String answer) throws Exception {
+	public void update(int answerId, String answer) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -311,7 +311,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 * 答えを１件登録する
 	*/
-	public void register_answer(int questionId, String answer) throws Exception {
+	public void register(int questionId, String answer) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
@@ -345,7 +345,7 @@ public class AnswersDao extends ConnectionDao {
 	/**
 	 * 答えを１件削除する
 	*/
-	public void delete_answer(int answerId) throws Exception {
+	public void deleteById(int answerId) throws Exception {
 		//DBと接続がない場合、接続
 		if (con == null) {
 			setConnection();
