@@ -30,7 +30,7 @@ public class ValidationTest {
 	}
 	
 	@Test
-	//201文字以上の答えが入力された場合、エラーメッセージが返される
+	//201文字以上の答えが含まれていた場合、エラーメッセージが返される
 	public void maxLengthOverAnswers() {
 		String question = "あいう";
 		//201文字を答えに格納
@@ -61,7 +61,7 @@ public class ValidationTest {
 	}
 	
 	@Test
-	//答えが入力されなかった場合、エラーメッセージが返される
+	//答えに入力されていないものが含まれていた場合、エラーメッセージが返される
 	public void nullAnswers() {
 		String question = "あいう";
 		//空文字を含む答えの配列を作成
@@ -75,8 +75,22 @@ public class ValidationTest {
 	}
 	
 	@Test
-	//問題がブランクだった場合、エラーメッセージが返される
-	public void blankQuestion() {
+	//問題が全角スペースだけだった場合、エラーメッセージが返される
+	public void fullwidthQuestion() {
+		//空白を問題に格納
+		String question = "　";
+		String[] answers = {"aiu"};
+		
+		Validation val = new Validation();
+		//validateメソッドに問題文と答えを渡して、エラーメッセージを取得
+		String errorMessage = val.validate(question, answers);
+		//エラーメッセージが取得できていることを確認
+		assertThat(errorMessage, is("※問題を入力してください。<br>"));
+	}
+	
+	@Test
+	//問題が半角スペースだけだった場合、エラーメッセージが返される
+	public void halfwidthQuestion() {
 		//空白を問題に格納
 		String question = " ";
 		String[] answers = {"aiu"};
@@ -89,8 +103,22 @@ public class ValidationTest {
 	}
 	
 	@Test
-	//答えがブランクだった場合、エラーメッセージが返される
-	public void blankAnswers() {
+	//答えが全角スペースだけだった場合、エラーメッセージが返される
+	public void fullwidthAnswers() {
+		String question = "あいう";
+		//空白を含む答えの配列を作成
+		String[] answers = {"　", "aiu"};
+		
+		Validation val = new Validation();
+		//validateメソッドに問題文と答えを渡して、エラーメッセージを取得
+		String errorMessage = val.validate(question, answers);
+		//エラーメッセージが取得できていることを確認
+		assertThat(errorMessage, is("※答え1が未入力です。<br>"));
+	}
+	
+	@Test
+	//答えに半角スペースだけのものが含まれている場合、エラーメッセージが返される
+	public void halfwidthAnswers() {
 		String question = "あいう";
 		//空白を含む答えの配列を作成
 		String[] answers = {" ", "aiu"};
