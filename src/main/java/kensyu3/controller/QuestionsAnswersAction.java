@@ -133,7 +133,7 @@ public class QuestionsAnswersAction extends Base{
 			AnswersDao ansDao = new AnswersDao();
 			//問題と答えを削除
 			queDao.delete(questionId);
-			ansDao.delete(questionId);
+			ansDao.deleteByQuestionId(questionId);
 			//登録されている問題がある場合
 			if(!(getQueList().isEmpty())) {
 				//list画面に遷移
@@ -206,16 +206,16 @@ public class QuestionsAnswersAction extends Base{
 					AnswersBean tmpAnswer = ansDao.findById(answersId[i]);
 					//入力された答えと、DBに登録されている答えの内容が一致していなかった場合
 					if(!(inputAnswers[i].equals(tmpAnswer.getAnswer()))) {
-						ansDao.update_answer(answersId[i], inputAnswers[i]); //答えを更新
+						ansDao.update(answersId[i], inputAnswers[i]); //答えを更新
 					}
 				} else { //idを持たない答えがあった場合（新たに追加された答えがあった場合）
-					ansDao.register_answer(questionId, inputAnswers[i]); //答えを登録
+					ansDao.register(questionId, inputAnswers[i]); //答えを登録
 				}
 			}
 			if(aList.size() > answersId.length) { //既存の答えの数の方が、フォームから渡されたidの数より多かった場合（削除された答えがあった場合）
 				for(AnswersBean ans : aList) { //既存の答えの数だけ、処理を繰り返す
 					if(!(Arrays.stream(answersId).anyMatch(x -> x == ans.getId()))){ //既存の答えにしかないidがあった場合
-						ansDao.delete_answer(ans.getId()); //答えを削除
+						ansDao.deleteById(ans.getId()); //答えを削除
 					}
 				}
 			}
