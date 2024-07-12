@@ -74,7 +74,7 @@ public class UsersDaoTest {
 		//ユーザーが取得できることを確認
 		assertThat(user.getId(), is(1));
 		assertThat(user.getName(), is("testuser1"));
-		assertThat(user.getPassword(), is("testtest1"));
+		assertThat(user.getPassword(), is("JzloXih8I+6oLnm51tL6aw=="));
 	}
 
 }
