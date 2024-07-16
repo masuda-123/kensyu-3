@@ -21,6 +21,7 @@
 			<a href="<s:url action='list'/>"><button>問題と答えを確認・登録する ></button></a>
 			<a href="<s:url action='test'/>"><button>テストをする > </button></a>
 			<a href="<s:url action='history'/>"><button>過去の採点結果をみる ></button></a>
+			<a href="<s:url action='user_lists'/>"><button>ユーザーを追加・編集する ></button></a>
 		</div>
 	</body>
 </html>
