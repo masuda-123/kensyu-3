@@ -4,9 +4,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="UTF-8">
-	<title>user_lists</title>
+		<meta charset="UTF-8">
+		<title>user_lists</title>
 	</head>
+	<style type="text/css">
+			body {width: 650px; margin: 0 auto;}
+			p {margin: 0;}
+			.btn_area {text-align: right; margin: 10px 20px;}
+			.user_id_area {width: 10%; text-align: left;}
+			.user_auth_area {width: 10%; text-align: left;}
+			.user_name_area {width: 66%; text-align: left;}
+			.user_new_btn {text-decoration: none; position: relative; width: 10%; padding: 12px 3px; display: block; margin: 10px 88.7%;}
+			.user_new_btn button {position: absolute; inset: 0;}
+	</style>
 	<body>
 		<div class="btn_area">
 			<a href="<s:url action='top'/>"><button>top</button></a>
@@ -23,14 +33,14 @@
 			<s:iterator value="userList" status="st">
 				<tr>
 					<td  class="user_id_area"><s:property value="id"/></td>
-					<s:set var="flag" value="userList.get(#st.index).getAdmin_flag()"/>
+					<s:set var="flag" value="userList.get(#st.index).getAdminFlag()"/>
 					<s:if test="%{#flag == 0}">
-						<td>一般</td>
+						<td  class="user_auth_area">一般</td>
 					</s:if>
 					<s:if test="%{#flag == 1}">
-						<td>管理者</td>
+						<td  class="user_auth_area">管理者</td>
 					</s:if>
-					<td  class="user_id_area"><s:property value="name"/></td>
+					<td  class="user_name_area"><s:property value="name"/></td>
 					<td>
 						<a href="<s:url action='edit'><s:param name="id" value="userList.get(#st.index).getId()" /></s:url>">
 							<button>編集</button>

@@ -8,7 +8,7 @@
 		<title>result</title>
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
-			.btn_area, .bottom_menu_area {width: 100%; text-align: right; margin-top: 10px;}
+			.btn_area, .bottom_menu_area {text-align: right; margin: 10px 20px;}
 			.menu_area a {text-decoration: none; position: relative; width: 40%; padding: 15px; display: block; margin: 10px auto;}
 			.menu_area button {position: absolute; inset: 0;}
 			.bottom_menu_area a {color: red; text-decoration: none;}

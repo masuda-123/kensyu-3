@@ -9,7 +9,8 @@
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
-			.btn_area {width: 100%; text-align: right; margin-top: 10px;}
+			h2 {text-align: center;}
+			.btn_area {text-align: right; margin: 10px 20px;}
 			.new_btn button {position: absolute; inset: 0;}
 			table {border-collapse: collapse;}
 			td, th {padding: 7px; width: 210px; border: solid 1px;}
