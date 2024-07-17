@@ -8,7 +8,7 @@ import kensyu3.other.PasswordEncrypter;
 
 
 public class UsersAction extends Base{
-	
+	private UsersBean user = new UsersBean();
 	private String id;
 	private String password;
 	private ArrayList<UsersBean> userList = new ArrayList<UsersBean>();
@@ -51,8 +51,18 @@ public class UsersAction extends Base{
 	public String user_lists() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			return "success";
+			UsersDao usersDao = new UsersDao();
+			user = usersDao.findById((int)session.get("userId"));
+			//ユーザーの権限があるか確認
+			if (user.getAdminFlag() == 1) {
+				//user_lists画面に遷移
+				return "user_lists";
+			}else {
+				//エラー画面に遷移
+				return "error";
+			}
 		}else {
+			//ログイン画面に遷移
 			return "failure";
 		}
 	}

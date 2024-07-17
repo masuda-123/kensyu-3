@@ -22,8 +22,8 @@ public class UsersDao extends ConnectionDao {
 		if (con == null) {
 			setConnection();
 		}
-		//users からidとpassword、nameを取得（条件：idが一致すること、deleted_atが空であること）
-		String sql = "SELECT id, name, password FROM users WHERE deleted_at is null and id = ? ";
+		//users からidとpassword、name, admin_flagを取得（条件：idが一致すること、deleted_atが空であること）
+		String sql = "SELECT id, name, password, admin_flag FROM users WHERE deleted_at is null and id = ? ";
 		
 		/** PreparedStatement オブジェクトの取得**/
 		try(PreparedStatement st = con.prepareStatement(sql)) {
@@ -39,10 +39,12 @@ public class UsersDao extends ConnectionDao {
 				int id = rs.getInt("id");
 				String name = rs.getString("name");
 				String pass = rs.getString("password");
+				int admin_flag = rs.getInt("admin_flag");
 				//UsersBean型のbeanに実行結果を格納
 				bean.setId(id);
 				bean.setName(name);
 				bean.setPassword(pass);
+				bean.setAdminFlag(admin_flag);
 			}
 			//beanオブジェクトを返す
 			return bean;
