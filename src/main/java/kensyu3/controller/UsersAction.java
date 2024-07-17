@@ -38,6 +38,7 @@ public class UsersAction extends Base{
 		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encypt(password))) {
 			//セッションに、userIdを格納
 			session.put("userId", userId);
+			setUser();
 			//top画面に遷移
 			return "success";
 			
@@ -47,12 +48,24 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	//top画面を表示
+	public String top() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			 setUser();
+			//top画面に遷移
+			return "success" ;
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
+	
 	//user_lists画面を表示
 	public String user_lists() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			UsersDao usersDao = new UsersDao();
-			user = usersDao.findById((int)session.get("userId"));
+			 setUser();
 			//ユーザーの権限があるか確認
 			if (user.getAdminFlag() == 1) {
 				//user_lists画面に遷移
@@ -96,5 +109,16 @@ public class UsersAction extends Base{
 			userList = userDao.findAll();
 		}
 		return userList;
+	}
+	
+	public void setUser() throws Exception{
+		if (user == null) {
+			UsersDao usersDao = new UsersDao();
+			user = usersDao.findById((int)session.get("userId"));
+		}
+	}
+	
+	public UsersBean getUser(){
+		return user;
 	}
 }

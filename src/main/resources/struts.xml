@@ -6,7 +6,7 @@
 	<constant name="struts.action.extension" value=""/>
 	<!-- URLに対応するアクションの定義 -->
 	<package name="default" extends="struts-default">
-		<action name="top" class="kensyu3.controller.HomeAction" method="top">
+		<action name="top" class="kensyu3.controller.UsersAction" method="top">
 			<result name="success">/top.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>

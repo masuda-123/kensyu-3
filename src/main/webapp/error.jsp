@@ -16,6 +16,6 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-		<p>このページは存在しません</p>
+		<p>このページにアクセスできません</p>
 	</body>
 </html>
