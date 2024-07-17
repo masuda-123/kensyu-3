@@ -75,5 +75,9 @@
 			<result name="success">/history.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="user_lists" class="kensyu3.controller.UsersAction" method="user_lists">
+			<result name="success">/user_lists.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>

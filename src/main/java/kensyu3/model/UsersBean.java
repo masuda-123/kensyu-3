@@ -10,14 +10,16 @@ public class UsersBean {
 	private Timestamp updated_at;
 	private byte deleteflag; 
 	private Timestamp deleted_at;
+	private int admin_flag;
 
 	/**
-	 * コンストラクタで、id, name, passwordに値をセット
+	 * コンストラクタで、id, name, password, admin_flagに値をセット
 	 */
-	public UsersBean (int id, String name, String password){
+	public UsersBean (int id, String name, String password, int admin_flag){
 		this.id = id;
 		this.name = name;
 		this.password = password;
+		this.admin_flag = admin_flag;
 	}
 	
 	/** 引数無しのコンストラクタ **/
@@ -82,5 +84,15 @@ public class UsersBean {
 	//メンバ変数のdeleteflagに値をセット
 	public void setDeleteflag(byte deleteflag) {
 		this.deleteflag = deleteflag;
+	}
+	
+	//メンバ変数のadmin_flagを取得
+	public int getAdminFlag() {
+		return this.admin_flag;
+	}
+	
+	//メンバ変数のadmin_flagに値をセット
+	public void setAdminFlag(int admin_flag) {
+		this.admin_flag = admin_flag;
 	}
 }

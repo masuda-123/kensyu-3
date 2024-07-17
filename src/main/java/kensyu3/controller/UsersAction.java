@@ -1,21 +1,17 @@
 package kensyu3.controller;
 
-import java.util.Map;
-
-import org.apache.struts2.interceptor.SessionAware;
-
-import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 
 import kensyu3.model.UsersBean;
 import kensyu3.model.UsersDao;
 import kensyu3.other.PasswordEncrypter;
 
 
-public class UsersAction extends ActionSupport implements SessionAware{
+public class UsersAction extends Base{
 	
 	private String id;
 	private String password;
-	private Map<String, Object> session;
+	private ArrayList<UsersBean> userList = new ArrayList<UsersBean>();
 	
 	//login画面を表示
 	public String login() throws Exception{
@@ -51,6 +47,16 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		}
 	}
 	
+	//user_lists画面を表示
+	public String user_lists() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			return "success";
+		}else {
+			return "failure";
+		}
+	}
+	
 	//logout処理
 	public String logout() throws Exception{
 		//セッションを削除
@@ -72,8 +78,13 @@ public class UsersAction extends ActionSupport implements SessionAware{
 		this.password = password;
 	}
 	
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
+	public ArrayList<UsersBean> getUserList() throws Exception{
+		//userListに値が格納されていない場合
+		if (userList.isEmpty()) {
+			UsersDao userDao = new UsersDao();
+			//問題データを全件取得
+			userList = userDao.findAll();
+		}
+		return userList;
 	}
 }
