@@ -28,7 +28,7 @@ public class QuestionsAnswersAction extends Base{
 	private int[] questionsId;
 	private String inputQuestion;
 	private String[] inputAnswers;
-	private String userName;
+	private UsersBean user = new UsersBean();
 	private String errorMessage;
 	private int point;
 	private int correctCnt;
@@ -42,13 +42,18 @@ public class QuestionsAnswersAction extends Base{
 	public String list() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//登録されている問題がある場合
-			if(!(getQueList().isEmpty())) {
-				//list画面に遷移
-				return "list" ;
+			if(getUser().getId() == 1) {
+				//登録されている問題がある場合
+				if(!(getQueList().isEmpty())) {
+					//list画面に遷移
+					return "list" ;
+				}else {
+					//register画面に遷移
+					return "register";
+				}
 			}else {
-				//register画面に遷移
-				return "register";
+				//エラー画面に遷移
+				return "error";
 			}
 		}else {
 			//login画面に遷移
@@ -427,17 +432,15 @@ public class QuestionsAnswersAction extends Base{
 		return correctCnt;
 	}
 	
-	//現在ログインしているユーザー名のgetter
-	public String getUserName() throws Exception{
+	//現在ログインしているユーザーのgetter
+	public UsersBean getUser() throws Exception{
 		//userNameに値が格納されていない場合
-		if(userName == null) {
+		if(user.getId() == 0) {
 			UsersDao usersDao = new UsersDao();
 			//セッションに登録されているidをもとに、ユーザーを取得
-			UsersBean user = usersDao.findById((int)session.get("userId"));
-			//ユーザー情報からユーザー名を取得し、格納
-			userName = user.getName();
+			user = usersDao.findById((int)session.get("userId"));
 		}
-		return userName;
+		return user;
 	}
 	
 	//現在日時のgetter

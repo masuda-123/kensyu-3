@@ -8,10 +8,17 @@ import kensyu3.other.PasswordEncrypter;
 
 
 public class UsersAction extends Base{
+	
+	//jspファイルから受け取る値の定義
 	private UsersBean user = new UsersBean();
 	private String id;
 	private String password;
 	private ArrayList<UsersBean> userList = new ArrayList<UsersBean>();
+	
+	
+	/*
+	 *  アクションの定義
+	 */
 	
 	//login画面を表示
 	public String login() throws Exception{
@@ -38,7 +45,6 @@ public class UsersAction extends Base{
 		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encypt(password))) {
 			//セッションに、userIdを格納
 			session.put("userId", userId);
-			setUser();
 			//top画面に遷移
 			return "success";
 			
@@ -52,7 +58,6 @@ public class UsersAction extends Base{
 	public String top() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			 setUser();
 			//top画面に遷移
 			return "success" ;
 		}else {
@@ -65,9 +70,8 @@ public class UsersAction extends Base{
 	public String user_lists() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			 setUser();
 			//ユーザーの権限があるか確認
-			if (user.getAdminFlag() == 1) {
+			if (getUser().getAdminFlag() == 1) {
 				//user_lists画面に遷移
 				return "user_lists";
 			}else {
@@ -88,37 +92,49 @@ public class UsersAction extends Base{
 		return "success";
 	}
 	
+	/*
+	 *  getter、setterの定義
+	 */
+	
+	//userIdのgetter
 	public String getId() {
 		return id;
 	}
+	
+	//userIdのsetter
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	//passwordのgetter
 	public String getPassword() {
 		return password;
 	}
+	
+	//passwordのsetter
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	
+	//全てのユーザー情報のgetter
 	public ArrayList<UsersBean> getUserList() throws Exception{
 		//userListに値が格納されていない場合
 		if (userList.isEmpty()) {
 			UsersDao userDao = new UsersDao();
-			//問題データを全件取得
+			//ユーザーデータを全件取得
 			userList = userDao.findAll();
 		}
 		return userList;
 	}
 	
-	public void setUser() throws Exception{
-		if (user == null) {
+	//現在ログインしているユーザー情報のgetter
+	public UsersBean getUser() throws Exception{
+		//userにユーザー情報が格納されていない場合
+		if (user.getId() == 0) {
 			UsersDao usersDao = new UsersDao();
+			//現在ログインしているユーザー情報を取得
 			user = usersDao.findById((int)session.get("userId"));
 		}
-	}
-	
-	public UsersBean getUser(){
 		return user;
 	}
 }
