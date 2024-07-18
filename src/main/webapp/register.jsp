@@ -10,7 +10,7 @@
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
 			.btn_area, .bottom_menu_area {text-align: right; margin: 10px 20px;}
-			.bottom_btn_area {text-align: right; margin-top: 10px;}
+			.bottom_btn_area {text-align: right; margin: 10px 20px;}
 			label {margin-right: 10px;}
 			.question_form_area {margin-top: 20px; display: flex;}
 			.question_form_area textarea {width: 76.7%; height: 100px;}
