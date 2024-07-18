@@ -56,6 +56,15 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	
+	//logout処理
+	public String logout() throws Exception{
+		//セッションを削除
+		session.clear();
+		//login画面に遷移
+		return "success";
+	}
+	
 	//top画面を表示
 	public String top() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
@@ -86,12 +95,22 @@ public class UsersAction extends Base{
 		}
 	}
 	
-	//logout処理
-	public String logout() throws Exception{
-		//セッションを削除
-		session.clear();
-		//login画面に遷移
-		return "success";
+	//user_register画面を表示
+	public String user_register() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//ユーザーの権限があるか確認
+			if (getAuth() == 1) {
+				//user_register画面に遷移
+				return "user_register";
+			}else {
+				//エラー画面に遷移
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
 	}
 	
 	/*

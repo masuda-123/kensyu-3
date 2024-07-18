@@ -6,8 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>user_lists</title>
-	</head>
-	<style type="text/css">
+		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
 			p {margin: 0;}
 			.btn_area {text-align: right; margin: 10px 20px;}
@@ -16,13 +15,14 @@
 			.user_name_area {width: 66%; text-align: left;}
 			.user_new_btn {text-decoration: none; position: relative; width: 10%; padding: 12px 3px; display: block; margin: 10px 88.7%;}
 			.user_new_btn button {position: absolute; inset: 0;}
-	</style>
+		</style>
+	</head>
 	<body>
 		<div class="btn_area">
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-		<a class="user_new_btn" href="<s:url action='register'/>"><button>新規登録</button></a>
+		<a class="user_new_btn" href="<s:url action='user_register'/>"><button>新規登録</button></a>
 		<table class="user_table">
 			<tr>
 				<th class="user_id_area">ID</th>

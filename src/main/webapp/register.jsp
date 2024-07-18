@@ -61,7 +61,7 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-			<s:form action="register_confirm">
+		<s:form action="register_confirm">
 			<div class="question_form_area">
 				<label for="inputQuestion">問題:</label>
 				<s:textarea name="inputQuestion"/>

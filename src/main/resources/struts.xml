@@ -80,5 +80,10 @@
 			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="user_register" class="kensyu3.controller.UsersAction" method="user_register">
+			<result name="user_register">/user_register.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>
