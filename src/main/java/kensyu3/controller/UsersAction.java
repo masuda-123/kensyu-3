@@ -9,8 +9,10 @@ import kensyu3.other.PasswordEncrypter;
 
 public class UsersAction extends Base{
 	
-	//jspファイルから受け取る値の定義
-	private UsersBean user = new UsersBean();
+	/*
+	 *  jspファイルから受け取る値の定義
+	 */
+	private int auth = 2; //初期値として、0と1以外の値を設定
 	private String id;
 	private String password;
 	private ArrayList<UsersBean> userList = new ArrayList<UsersBean>();
@@ -71,7 +73,7 @@ public class UsersAction extends Base{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//ユーザーの権限があるか確認
-			if (getUser().getAdminFlag() == 1) {
+			if (getAuth() == 1) {
 				//user_lists画面に遷移
 				return "user_lists";
 			}else {
@@ -127,14 +129,15 @@ public class UsersAction extends Base{
 		return userList;
 	}
 	
-	//現在ログインしているユーザー情報のgetter
-	public UsersBean getUser() throws Exception{
+	//現在ログインしているユーザーの権限のgetter
+	public int getAuth() throws Exception{
 		//userにユーザー情報が格納されていない場合
-		if (user.getId() == 0) {
+		if (auth == 2) {
 			UsersDao usersDao = new UsersDao();
 			//現在ログインしているユーザー情報を取得
-			user = usersDao.findById((int)session.get("userId"));
+			UsersBean user = usersDao.findById((int)session.get("userId"));
+			auth = user.getAdminFlag();
 		}
-		return user;
+		return auth;
 	}
 }

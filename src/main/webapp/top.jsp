@@ -18,13 +18,13 @@
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
 		<div class="menu_area">
-			<s:set var="auth" value="user.getAdminFlag()"/>
+			<s:set var="auth" value="auth"/>
 			<s:if test="%{#auth == 1}">
 				<a href="<s:url action='list'/>"><button>問題と答えを確認・登録する ></button></a>
 			</s:if>
 			<a href="<s:url action='test'/>"><button>テストをする > </button></a>
 			<a href="<s:url action='history'/>"><button>過去の採点結果をみる ></button></a>
-			<s:set var="auth" value="user.getAdminFlag()"/>
+			<s:set var="auth" value="auth"/>
 			<s:if test="%{#auth == 1}">
 				<a href="<s:url action='user_lists'/>"><button>ユーザーを追加・編集する ></button></a>
 			</s:if>
