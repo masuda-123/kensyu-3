@@ -33,11 +33,10 @@
 			<s:iterator value="userList" status="st">
 				<tr>
 					<td  class="user_id_area"><s:property value="id"/></td>
-					<s:set var="flag" value="userList.get(#st.index).getAdminFlag()"/>
-					<s:if test="%{#flag == 0}">
+					<s:if test="%{userList.get(#st.index).getAdminFlag() == 0}">
 						<td  class="user_auth_area">一般</td>
 					</s:if>
-					<s:if test="%{#flag == 1}">
+					<s:if test="%{userList.get(#st.index).getAdminFlag() == 1}">
 						<td  class="user_auth_area">管理者</td>
 					</s:if>
 					<td  class="user_name_area"><s:property value="name"/></td>

@@ -23,8 +23,7 @@
 		</div>
 		<h2>履歴</h2>
 		<!-- 履歴が登録されていない場合  -->
-		<s:set var="hisList" value="hisList"/>
-		<s:if test="%{#hisList.isEmpty()}">
+		<s:if test="%{hisList.isEmpty()}">
 			<p>履歴が登録されていません</p>
 		</s:if>
 		<!-- 履歴が登録されている場合  -->

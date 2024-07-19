@@ -67,18 +67,6 @@ public class UsersAction extends Base{
 		return "success";
 	}
 	
-	//top画面を表示
-	public String top() throws Exception{
-		//Baseクラスでログインしているかどうかを確認
-		if (super.isCheckLogin()) {
-			//top画面に遷移
-			return "success" ;
-		}else {
-			//login画面に遷移
-			return "failure";
-		}
-	}
-	
 	//user_lists画面を表示
 	public String user_lists() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
@@ -194,7 +182,7 @@ public class UsersAction extends Base{
 		return userList;
 	}
 	
-	//現在ログインしているユーザーの権限のgetter
+	//現在ログインしているユーザー権限のgetter
 	public int getCurrentUserAuth() throws Exception{
 		//userにユーザー情報が格納されていない場合
 		if (currentUserAuth == 2) {

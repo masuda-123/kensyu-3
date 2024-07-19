@@ -28,7 +28,8 @@ public class QuestionsAnswersAction extends Base{
 	private int[] questionsId;
 	private String inputQuestion;
 	private String[] inputAnswers;
-	private UsersBean user = new UsersBean();
+	private String currentUserName;
+	private int currentUserAuth = 2;
 	private String errorMessage;
 	private int point;
 	private int correctCnt;
@@ -37,13 +38,24 @@ public class QuestionsAnswersAction extends Base{
 	/*
 	 *  アクションの定義
 	 */
+	//top画面を表示
+	public String top() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//top画面に遷移
+			return "success" ;
+		}else {
+			//login画面に遷移
+			return "failure";
+		}
+	}
 	
 	//list画面を表示
 	public String list() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//権限があるかどうか確認
-			if(getUser().getAdminFlag() == 1) {
+			if(getCurrentUserAuth() == 1) {
 				//登録されている問題がある場合
 				if(!(getQueList().isEmpty())) {
 					//list画面に遷移
@@ -433,15 +445,29 @@ public class QuestionsAnswersAction extends Base{
 		return correctCnt;
 	}
 	
-	//現在ログインしているユーザーのgetter
-	public UsersBean getUser() throws Exception{
+	//現在ログインしているユーザ名のgetter
+	public String getCurrentUserName() throws Exception{
 		//userNameに値が格納されていない場合
-		if(user.getId() == 0) {
+		if(currentUserName == null) {
 			UsersDao usersDao = new UsersDao();
 			//セッションに登録されているidをもとに、ユーザーを取得
-			user = usersDao.findById((int)session.get("userId"));
+			UsersBean currentUser = usersDao.findById((int)session.get("userId"));
+			currentUserName = currentUser.getName();
 		}
-		return user;
+		return currentUserName;
+	}
+	
+	//現在ログインしているユーザ権限のgetter
+	public int getCurrentUserAuth() throws Exception{
+		//currentUserAuthに0か1が格納されていない場合
+		if(currentUserAuth == 2) {
+			UsersDao usersDao = new UsersDao();
+			//セッションに登録されているidをもとに、ユーザーを取得
+			UsersBean currentUser = usersDao.findById((int)session.get("userId"));
+			//ユーザー情報からidを取得
+			currentUserAuth = currentUser.getAdminFlag();
+		}
+		return currentUserAuth;
 	}
 	
 	//現在日時のgetter

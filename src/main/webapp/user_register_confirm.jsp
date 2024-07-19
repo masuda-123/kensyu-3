@@ -17,6 +17,7 @@
 			.user_form label {width: 15%; display: block; text-align: right;}
 			.user_form_info li{margin-left: 20%;}
 			.user_form input[type="text"], .user_form input[type="password"] {width: 80%;}
+			p {margin: 0;}
 		</style>
 	</head>
 	<body>

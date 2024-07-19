@@ -22,7 +22,7 @@
 		</div>
 		<s:set var="queCnt" value="questionsId.length"/>
 		<h2>テスト結果</h2>
-		<p><s:property value="user.getName()"/>さん</p>
+		<p><s:property value="userName"/>さん</p>
 		<p>${queCnt}問中<s:property value="correctCnt"/>問正解です。</p>
 		<p><s:property value="point"/>点でした。</p>
 		<div class="bottom_menu_area">
