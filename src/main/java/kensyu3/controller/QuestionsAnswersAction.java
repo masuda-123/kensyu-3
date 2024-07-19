@@ -42,7 +42,8 @@ public class QuestionsAnswersAction extends Base{
 	public String list() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			if(getUser().getId() == 1) {
+			//権限があるかどうか確認
+			if(getUser().getAdminFlag() == 1) {
 				//登録されている問題がある場合
 				if(!(getQueList().isEmpty())) {
 					//list画面に遷移
