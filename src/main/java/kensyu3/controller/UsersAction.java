@@ -113,6 +113,24 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	//user_register_confirm画面を表示
+	public String user_register_confirm() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//ユーザーの権限があるか確認
+			if (getAuth() == 1) {
+				//user_register_confirm画面に遷移
+				return "user_register_confirm";
+			}else {
+				//エラー画面に遷移
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
 	/*
 	 *  getter、setterの定義
 	 */

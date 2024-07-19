@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>user_lists</title>
+		<title>user_register</title>
 		<style>
 			body {width: 650px; margin: 0 auto;}
 			label {margin-right: 10px;}
