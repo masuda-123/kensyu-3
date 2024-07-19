@@ -80,7 +80,7 @@
 			</div>
 			<div  class="user_form">
 				<label>管理者権限: </label>
-				<s:set var="auth" value="auth"/>
+				<s:hidden id="auth" name="auth" value="0"/>
 				<s:checkbox id="auth" name="auth" fieldValue="1" value="false"/>
 			</div>
 			<div class="user_form_info">

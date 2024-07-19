@@ -12,9 +12,11 @@ public class UsersAction extends Base{
 	/*
 	 *  jspファイルから受け取る値の定義
 	 */
-	private int auth = 2; //初期値として、0と1以外の値を設定
+	private int currentUserAuth = 2; //初期値として、0と1以外の値を設定
+	private int auth;
 	private String id;
 	private String password;
+	private String userName;
 	private ArrayList<UsersBean> userList = new ArrayList<UsersBean>();
 	
 	
@@ -82,7 +84,7 @@ public class UsersAction extends Base{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//ユーザーの権限があるか確認
-			if (getAuth() == 1) {
+			if (getCurrentUserAuth() == 1) {
 				//user_lists画面に遷移
 				return "user_lists";
 			}else {
@@ -100,7 +102,7 @@ public class UsersAction extends Base{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//ユーザーの権限があるか確認
-			if (getAuth() == 1) {
+			if (getCurrentUserAuth() == 1) {
 				//user_register画面に遷移
 				return "user_register";
 			}else {
@@ -118,7 +120,7 @@ public class UsersAction extends Base{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//ユーザーの権限があるか確認
-			if (getAuth() == 1) {
+			if (getCurrentUserAuth() == 1) {
 				//user_register_confirm画面に遷移
 				return "user_register_confirm";
 			}else {
@@ -155,6 +157,32 @@ public class UsersAction extends Base{
 		this.password = password;
 	}
 	
+	//userNameのgetter
+	public String getUserName() {
+		return userName;
+	}
+	
+	//userNameのsetter
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	//authのgetter
+	public int getAuth() {
+		return auth;
+	}
+	
+	//authのsetter
+	public void setAuth(int[] auth) {
+		//authが2つ送られてきた場合、2つ目に送られた値をauthに格納
+		if(auth.length > 1) {
+			this.auth = auth[1];
+		//authが1つだけ送られてきた場合は、その値をauthに格納
+		}else {
+			this.auth = auth[0];
+		}
+	}
+	
 	//全てのユーザー情報のgetter
 	public ArrayList<UsersBean> getUserList() throws Exception{
 		//userListに値が格納されていない場合
@@ -167,14 +195,14 @@ public class UsersAction extends Base{
 	}
 	
 	//現在ログインしているユーザーの権限のgetter
-	public int getAuth() throws Exception{
+	public int getCurrentUserAuth() throws Exception{
 		//userにユーザー情報が格納されていない場合
-		if (auth == 2) {
+		if (currentUserAuth == 2) {
 			UsersDao usersDao = new UsersDao();
 			//現在ログインしているユーザー情報を取得
 			UsersBean user = usersDao.findById((int)session.get("userId"));
-			auth = user.getAdminFlag();
+			currentUserAuth = user.getAdminFlag();
 		}
-		return auth;
+		return currentUserAuth;
 	}
 }
