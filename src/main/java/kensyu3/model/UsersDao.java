@@ -108,4 +108,39 @@ public class UsersDao extends ConnectionDao {
 			}
 		}
 	}
+	
+	/**
+	 * ユーザーを登録する
+	 */
+	public void register(String userName, String password, int auth) throws Exception {
+		//DBと接続がない場合、接続
+		if (con == null) {
+			setConnection();
+		}
+		//users にデータを追加
+		String insert_sql = "INSERT INTO users (name, password, admin_flag, created_at) VALUES (?, ?, ?,  CURRENT_TIMESTAMP());";
+		
+		/** PreparedStatement オブジェクトの取得**/
+		try(PreparedStatement insert_st = con.prepareStatement(insert_sql)) {
+			//isnert_sqlの ? に値をセット
+			insert_st.setString(1, userName);
+			insert_st.setString(2, password);
+			insert_st.setInt(3, auth);
+			/** SQL 実行 **/
+			insert_st.executeUpdate();
+		} catch (Exception e) {
+			//スタックトレースを出力
+			e.printStackTrace();
+			//例外を投げる
+			throw new DAOException("レコードの登録に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
 }

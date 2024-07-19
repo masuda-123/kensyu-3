@@ -46,7 +46,7 @@ public class UsersAction extends Base{
 		PasswordEncrypter passwordEncyoter = new PasswordEncrypter();
 		
 		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードを暗号化したものと一致する場合
-		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encypt(password))) {
+		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encrypt(password))) {
 			//セッションに、userIdを格納
 			session.put("userId", userId);
 			//top画面に遷移
@@ -107,12 +107,36 @@ public class UsersAction extends Base{
 	public String user_register_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//ユーザーの権限があるか確認
-			if (getCurrentUserAuth() == 1) {
+			//入力した内容があるかどうか
+			if(userName != null) {
 				//user_register_confirm画面に遷移
 				return "user_register_confirm";
 			}else {
 				//エラー画面に遷移
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
+	//登録処理
+	public String user_register_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//入力した内容があるかどうか
+			if(userName != null) {
+				UsersDao usersDao = new UsersDao();
+				//パスワードを暗号化
+				PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+				String encyptPassword = passwordEncrypter.encrypt(password);
+				//ユーザーを登録
+				usersDao.register(userName, encyptPassword, auth);
+				//user_lists画面に遷移
+				return "user_lists";
+			}else {
+				//error画面に遷移
 				return "error";
 			}
 		}else {
