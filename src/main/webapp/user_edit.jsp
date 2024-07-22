@@ -19,6 +19,40 @@
 			.user_form input[type="text"], .user_form input[type="password"] {width: 80%;}
 			p {margin: 0;}
 		</style>
+		<script type="text/javascript">
+			var i = 1;
+			function checkValidation() {
+				//フォームの要素を取得
+				const password = document.getElementById('password');
+				const passwordConfirm = document.getElementById('passwordConfirm');
+				//正規表現として半角英数字を設定
+				const reg = /^[a-zA-Z0-9]+$/;
+				let message = "";
+
+				//パスワードが空だった場合
+				if(password.value == ""){
+					message += "※パスワードが未入力です\n";
+				//パスワードが半角英数字でなかった場合
+				}else if(!reg.test(password.value)){
+					message += "※パスワードは半角英数字で入力してください\n";
+				//パスワードが8文字より少なかった場合
+				}else if(password.value.length < 8){
+					message += "※パスワードは8文字以上で入力してください\n";
+				}
+				//確認用パスワードが空だった場合
+				if(passwordConfirm.value == ""){
+					message += "※確認用パスワードが未入力です\n";
+				//確認用パスワードが、パスワードと一致していなかった場合
+				}else if(passwordConfirm.value != password.value){
+					message += "※パスワードと確認用パスワードが一致していません\n";
+				}
+				//エラーメッセーがある場合、アラートを表示し、画面遷移させない
+				if(message.length > 0){
+					alert(message);
+					return false;
+				}
+			};
+		</script>
 	</head>
 	<body>
 		<div class="btn_area">
