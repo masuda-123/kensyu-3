@@ -18,6 +18,7 @@ public class UsersAction extends Base{
 	private String password;
 	private String userName;
 	private ArrayList<UsersBean> userList = new ArrayList<UsersBean>();
+	private UsersBean user;
 	
 	
 	/*
@@ -121,6 +122,18 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	//user_edit画面を表示
+	public String user_edit() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			return "user_edit";
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
+	
 	//登録処理
 	public String user_register_complete() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
@@ -199,11 +212,21 @@ public class UsersAction extends Base{
 	public ArrayList<UsersBean> getUserList() throws Exception{
 		//userListに値が格納されていない場合
 		if (userList.isEmpty()) {
-			UsersDao userDao = new UsersDao();
+			UsersDao usersDao = new UsersDao();
 			//ユーザーデータを全件取得
-			userList = userDao.findAll();
+			userList = usersDao.findAll();
 		}
 		return userList;
+	}
+	
+	//ユーザー情報のgetter
+	public UsersBean getUser() throws Exception{
+		if(user == null) {
+			user = new UsersBean();
+			UsersDao usersDao = new UsersDao();
+			user = usersDao.findById(Integer.parseInt(id));
+		}
+		return user;
 	}
 	
 	//現在ログインしているユーザー権限のgetter

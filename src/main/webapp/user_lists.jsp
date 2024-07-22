@@ -41,12 +41,12 @@
 					</s:if>
 					<td  class="user_name_area"><s:property value="name"/></td>
 					<td>
-						<a href="<s:url action='edit'><s:param name="id" value="userList.get(#st.index).getId()" /></s:url>">
+						<a href="<s:url action='user_edit'><s:param name="id" value="userList.get(#st.index).getId()" /></s:url>">
 							<button>編集</button>
 						</a>
 					</td>
 					<td>
-						<a href="<s:url action='delete_confirm'><s:param name="id" value="userList.get(#st.index).getId()" /></s:url>">
+						<a href="<s:url action='user_delete_confirm'><s:param name="id" value="userList.get(#st.index).getId()" /></s:url>">
 							<button>削除</button>
 						</a>
 					</td>
