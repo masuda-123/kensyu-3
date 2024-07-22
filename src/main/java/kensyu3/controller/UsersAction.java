@@ -44,10 +44,10 @@ public class UsersAction extends Base{
 		
 		//idをもとにユーザーを取得
 		UsersBean user = usersDao.findById(userId);
-		PasswordEncrypter passwordEncyoter = new PasswordEncrypter();
+		PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
 		
 		//フォームから渡されたIDと一致するレコードがあり、そのレコードのパスワードが、入力されたパスワードを暗号化したものと一致する場合
-		if(user.getId() != 0 && user.getPassword().equals(passwordEncyoter.encrypt(password))) {
+		if(user.getId() != 0 && user.getPassword().equals(passwordEncrypter.encrypt(password))) {
 			//セッションに、userIdを格納
 			session.put("userId", userId);
 			//top画面に遷移
@@ -126,7 +126,12 @@ public class UsersAction extends Base{
 	public String user_edit() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			return "user_edit";
+			//パラメータで指定したidが存在するか
+			if(getUser().getId() != 0) {
+				return "user_edit";
+			}else {
+				return "error";
+			}
 		}else {
 			//ログイン画面に遷移
 			return "failure";
@@ -174,6 +179,12 @@ public class UsersAction extends Base{
 	
 	//passwordのgetter
 	public String getPassword() {
+		//パスワードが空だった場合、user_edit画面で使用するパスワードを格納
+		if(password == null) {
+			//パスワードを復号化
+			PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+			password = passwordEncrypter.decrypt(user.getPassword());
+		}
 		return password;
 	}
 	

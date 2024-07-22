@@ -33,11 +33,11 @@
 				</div>
 				<div class="user_form">
 					<label>PW: </label>
-					<s:password id="password" name="password" value="%{user.getPassword()}"/>
+					<s:password id="password" name="password" value="%{password}" showPassword="true"/>
 				</div>
 				<div class="user_form">
 					<label>PW確認: </label>
-					<s:password id="passwordConfirm" name="passwordConfirm" value="%{user.getPassword()}"/>
+					<s:password id="passwordConfirm" name="passwordConfirm" value="%{password}" showPassword="true"/>
 				</div>
 				<div class="user_form">
 					<label>管理者権限: </label>
