@@ -8,7 +8,7 @@
 		<title>error</title>
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
-			.btn_area {width: 100%; text-align: right; margin-top: 10px;}
+			.btn_area {text-align: right; margin: 10px 20px;}
 		</style>
 	</head>
 	<body>
@@ -16,6 +16,6 @@
 			<a href="<s:url action='top'/>"><button>top</button></a>
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
-		<p>このページは存在しません</p>
+		<p>このページにアクセスできません</p>
 	</body>
 </html>

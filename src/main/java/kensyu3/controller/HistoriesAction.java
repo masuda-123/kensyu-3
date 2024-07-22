@@ -35,6 +35,7 @@ public class HistoriesAction extends Base {
 	 *  getterの定義
 	 */
 	
+	//全ての履歴情報のgetter
 	public ArrayList<HistoriesBean> getHisList() throws Exception{
 		//hisListに値が格納されていない場合
 		if (hisList.isEmpty()) {
@@ -49,6 +50,7 @@ public class HistoriesAction extends Base {
 		return hisList;
 	}
 	
+	//ユーザー名のgetter
 	public String getUserName() throws Exception{
 		//userNameに値が格納されていない場合
 		if (userName == null) {
@@ -60,6 +62,7 @@ public class HistoriesAction extends Base {
 		return userName;
 	}
 	
+	//現在時刻のgetter
 	public String[] getDateTime() throws Exception{
 		//フォーマットを作成
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

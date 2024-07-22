@@ -8,7 +8,7 @@
 		<title>result</title>
 		<style type="text/css">
 			body {width: 650px; margin: 0 auto;}
-			.btn_area, .bottom_menu_area {width: 100%; text-align: right; margin-top: 10px;}
+			.btn_area, .bottom_menu_area {text-align: right; margin: 10px 20px;}
 			.menu_area a {text-decoration: none; position: relative; width: 40%; padding: 15px; display: block; margin: 10px auto;}
 			.menu_area button {position: absolute; inset: 0;}
 			.bottom_menu_area a {color: red; text-decoration: none;}
@@ -22,7 +22,7 @@
 		</div>
 		<s:set var="queCnt" value="questionsId.length"/>
 		<h2>テスト結果</h2>
-		<p><s:property value="userName"/>さん</p>
+		<p><s:property value="user.getName()"/>さん</p>
 		<p>${queCnt}問中<s:property value="correctCnt"/>問正解です。</p>
 		<p><s:property value="point"/>点でした。</p>
 		<div class="bottom_menu_area">

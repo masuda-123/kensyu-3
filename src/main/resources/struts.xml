@@ -6,7 +6,7 @@
 	<constant name="struts.action.extension" value=""/>
 	<!-- URLに対応するアクションの定義 -->
 	<package name="default" extends="struts-default">
-		<action name="top" class="kensyu3.controller.HomeAction" method="top">
+		<action name="top" class="kensyu3.controller.UsersAction" method="top">
 			<result name="success">/top.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
@@ -73,6 +73,11 @@
 		</action>
 		<action name="history" class="kensyu3.controller.HistoriesAction" method="history">
 			<result name="success">/history.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="user_lists" class="kensyu3.controller.UsersAction" method="user_lists">
+			<result name="user_lists">/user_lists.jsp</result>
+			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
 	</package>

@@ -16,7 +16,7 @@
 			.test_answers_area {margin-top: 10px; display: flex;}
 			.test_answer_form {width: 100%;}
 			.test_answer_form input {width: 98.6%; height: 20px;}
-			.btn_area {width: 100%; text-align: right; margin-top: 10px;}
+			.btn_area {text-align: right; margin: 10px 20px;}
 			.bottom_btn_area {text-align: right; margin-top: 10px;}
 		</style>
 	</head>
