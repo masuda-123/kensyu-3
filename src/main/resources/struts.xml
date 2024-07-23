@@ -100,5 +100,10 @@
 			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="user_edit_confirm" class="kensyu3.controller.UsersAction" method="user_edit_confirm">
+			<result name="user_edit_confirm">/user_edit_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>

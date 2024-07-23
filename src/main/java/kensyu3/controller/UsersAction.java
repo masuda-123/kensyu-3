@@ -138,6 +138,22 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	//user_edit_confirm画面を表示
+	public String user_edit_confirm() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//パラメータで指定したidが存在するか
+			if(getUser().getId() != 0) {
+				return "user_edit";
+			}else {
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
 	
 	//登録処理
 	public String user_register_complete() throws Exception{
