@@ -28,6 +28,7 @@
 				<div  class="user_form">
 					<label>ID: </label>
 					<p><s:property value="%{user.getId()}"/></p>
+					<s:hidden id="id" name="id" value="%{user.getId()}"/>
 				</div>
 				<div class="user_form">
 					<label>ユーザー名: </label>
@@ -56,7 +57,7 @@
 				</div>
 			<div class="bottom_btn_area">
 				<button type="button" onclick="history.back()">戻る</button>
-				<s:submit value = "登録"/>
+				<s:submit value = "更新"/>
 			</div>
 		</s:form>
 	</body>

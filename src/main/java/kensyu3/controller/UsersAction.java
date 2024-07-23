@@ -77,7 +77,7 @@ public class UsersAction extends Base{
 				//user_lists画面に遷移
 				return "user_lists";
 			}else {
-				//エラー画面に遷移
+				//error画面に遷移
 				return "error";
 			}
 		}else {
@@ -95,7 +95,7 @@ public class UsersAction extends Base{
 				//user_register画面に遷移
 				return "user_register";
 			}else {
-				//エラー画面に遷移
+				//error画面に遷移
 				return "error";
 			}
 		}else {
@@ -113,7 +113,7 @@ public class UsersAction extends Base{
 				//user_register_confirm画面に遷移
 				return "user_register_confirm";
 			}else {
-				//エラー画面に遷移
+				//error画面に遷移
 				return "error";
 			}
 		}else {
@@ -128,8 +128,10 @@ public class UsersAction extends Base{
 		if (super.isCheckLogin()) {
 			//ユーザー権限があり、かつパラメータで指定したidが存在するか
 			if(getCurrentUserAuth() == 1 && getUser().getId() != 0) {
+				//user_edit画面に遷移
 				return "user_edit";
 			}else {
+				//error画面に遷移
 				return "error";
 			}
 		}else {
@@ -144,8 +146,10 @@ public class UsersAction extends Base{
 		if (super.isCheckLogin()) {
 			//入力した内容があるかどうか
 			if(password != null) {
+				//user_edit_confirm画面に遷移
 				return "user_edit_confirm";
 			}else {
+				//error画面に遷移
 				return "error";
 			}
 		}else {
@@ -160,8 +164,16 @@ public class UsersAction extends Base{
 		if (super.isCheckLogin()) {
 			//入力した内容があるかどうか
 			if(password != null) {
-				return "user_edit";
+				UsersDao usersDao = new UsersDao();
+				//パスワードを暗号化
+				PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+				String encyptPassword = passwordEncrypter.encrypt(password);
+				//ユーザーを更新
+				usersDao.update(Integer.parseInt(id), encyptPassword, auth);
+				//user_lists画面に遷移
+				return "user_lists";
 			}else {
+				//error画面に遷移
 				return "error";
 			}
 		}else {
@@ -169,7 +181,6 @@ public class UsersAction extends Base{
 			return "failure";
 		}
 	}
-	
 	
 	//登録処理
 	public String user_register_complete() throws Exception{
