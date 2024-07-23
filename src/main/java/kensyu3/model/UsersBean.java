@@ -8,7 +8,6 @@ public class UsersBean {
 	private String password;
 	private Timestamp created_at;
 	private Timestamp updated_at;
-	private byte deleteflag; 
 	private Timestamp deleted_at;
 	private int admin_flag;
 
@@ -76,16 +75,6 @@ public class UsersBean {
 		this.updated_at = updated_at;
 	}
 	
-	//メンバ変数のdeleteflagを取得
-	public byte getDeleteflag() {
-		return this.deleteflag;
-	}
-	
-	//メンバ変数のdeleteflagに値をセット
-	public void setDeleteflag(byte deleteflag) {
-		this.deleteflag = deleteflag;
-	}
-	
 	//メンバ変数のadmin_flagを取得
 	public int getAdminFlag() {
 		return this.admin_flag;
@@ -94,5 +83,15 @@ public class UsersBean {
 	//メンバ変数のadmin_flagに値をセット
 	public void setAdminFlag(int admin_flag) {
 		this.admin_flag = admin_flag;
+	}
+	
+	//メンバ変数のdeleted_atを取得
+	public Timestamp getDeletedAt() {
+		return this.deleted_at;
+	}
+	
+	//メンバ変数のadmin_flagに値をセット
+	public void setDeletedAt(Timestamp deleted_at) {
+		this.deleted_at = deleted_at;
 	}
 }

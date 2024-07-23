@@ -229,6 +229,37 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	//削除処理
+	public String user_delete_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//フォームから送られてきたidがあるかどうか
+			if(id != null) {
+				UsersDao usersDao = new UsersDao();
+				//ユーザーを論理削除
+				usersDao.delete(Integer.parseInt(id));
+				//削除したユーザーが現在ログインしているユーザーかどうか
+				if((int)session.get("userId")== Integer.parseInt(id)) {
+					//セッションを削除
+					session.clear();
+					//ログイン画面に初期値が設定されないように、idをnullにする
+					id = null;
+					//login画面に遷移
+					return "login";
+				}else {
+					//user_lists画面に遷移
+					return "user_lists";
+				}
+			}else {
+				//error画面に遷移
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
 	/*
 	 *  getter、setterの定義
 	 */

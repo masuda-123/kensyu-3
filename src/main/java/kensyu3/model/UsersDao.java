@@ -72,8 +72,8 @@ public class UsersDao extends ConnectionDao {
 		if (con == null) {
 			setConnection();
 		}
-		//users からデータを取得
-		String sql = "SELECT id, name, password, admin_flag FROM users";
+		//users からデータを取得（条件：deleted_atが空であること）
+		String sql = "SELECT id, name, password, admin_flag FROM users WHERE deleted_at is null";
 		
 		/** PreparedStatement オブジェクトの取得とsqlの実行**/
 		try(PreparedStatement st = con.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
@@ -152,12 +152,12 @@ public class UsersDao extends ConnectionDao {
 		if (con == null) {
 			setConnection();
 		}
-		//users にデータを追加
-		String sql = "UPDATE users set password = ?, admin_flag = ?, updated_at = CURRENT_TIMESTAMP() WHERE id = ?;";
+		//users のデータを更新
+		String sql = "UPDATE users SET password = ?, admin_flag = ?, updated_at = CURRENT_TIMESTAMP() WHERE id = ?;";
 		
 		/** PreparedStatement オブジェクトの取得**/
 		try(PreparedStatement st = con.prepareStatement(sql)) {
-			//isnert_sqlの ? に値をセット
+			//sqlの ? に値をセット
 			st.setString(1, password);
 			st.setInt(2, auth);
 			st.setInt(3, id);
@@ -168,6 +168,39 @@ public class UsersDao extends ConnectionDao {
 			e.printStackTrace();
 			//例外を投げる
 			throw new DAOException("レコードの更新に失敗しました");
+		} finally {
+			//リソースの開放
+			try {
+				close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new DAOException("リソースの開放に失敗しました");
+			}
+		}
+	}
+	
+	/**
+	 * ユーザーを削除する
+	 */
+	public void delete(int id) throws Exception {
+		//DBと接続がない場合、接続
+		if (con == null) {
+			setConnection();
+		}
+		//users のデータを論理削除
+		String sql = "UPDATE users SET deleted_at = CURRENT_TIMESTAMP() WHERE id = ?;";
+		
+		/** PreparedStatement オブジェクトの取得**/
+		try(PreparedStatement st = con.prepareStatement(sql)) {
+			//sqlの ? に値をセット
+			st.setInt(1, id);
+			/** SQL 実行 **/
+			st.executeUpdate();
+		} catch (Exception e) {
+			//スタックトレースを出力
+			e.printStackTrace();
+			//例外を投げる
+			throw new DAOException("レコードの論理削除に失敗しました");
 		} finally {
 			//リソースの開放
 			try {

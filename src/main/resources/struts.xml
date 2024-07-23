@@ -116,5 +116,11 @@
 			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>
+		<action name="user_delete_complete" class="kensyu3.controller.UsersAction" method="user_delete_complete">
+			<result name="user_lists">/user_lists.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
 	</package>
 </struts>

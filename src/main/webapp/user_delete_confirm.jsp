@@ -27,6 +27,7 @@
 			<div  class="user_form">
 				<label>ID: </label>
 				<p><s:property value="%{user.getId()}"/></p>
+				<s:hidden id="id" name="id" value="%{user.getId()}"/>
 			</div>
 			<div class="user_form">
 				<label>ユーザー名: </label>
