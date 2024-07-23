@@ -27,7 +27,8 @@ public class UsersAction extends Base{
 	
 	//login画面を表示
 	public String login() throws Exception{
-		return "success";
+		//login画面に遷移
+		return "login";
 	}
 	
 	//login処理
@@ -51,11 +52,11 @@ public class UsersAction extends Base{
 			//セッションに、userIdを格納
 			session.put("userId", userId);
 			//top画面に遷移
-			return "success";
+			return "top";
 			
 		} else { //IDに一致するレコードがなかった場合もしくは、パスワードが一致しなかった場合
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -65,7 +66,7 @@ public class UsersAction extends Base{
 		//セッションを削除
 		session.clear();
 		//login画面に遷移
-		return "success";
+		return "login";
 	}
 	
 	//user_lists画面を表示
@@ -81,8 +82,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -99,8 +100,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -117,8 +118,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -141,8 +142,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -160,7 +161,7 @@ public class UsersAction extends Base{
 			}
 		}else {
 			//ログイン画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -177,8 +178,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -206,8 +207,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -224,8 +225,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	
@@ -255,8 +256,8 @@ public class UsersAction extends Base{
 				return "error";
 			}
 		}else {
-			//ログイン画面に遷移
-			return "failure";
+			//login画面に遷移
+			return "login";
 		}
 	}
 	

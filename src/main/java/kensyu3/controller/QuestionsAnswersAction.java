@@ -43,10 +43,10 @@ public class QuestionsAnswersAction extends Base{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//top画面に遷移
-			return "success" ;
+			return "top" ;
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -70,28 +70,34 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
-	//登録画面を表示
+	//register画面を表示
 	public String register() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//register画面に遷移
-			return "success" ;
+			//権限があるかどうか確認
+			if(getCurrentUserAuth() == 1) {
+				//register画面に遷移
+				return "register" ;
+			}else {
+				//error画面に遷移
+				return "error";
+			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
-	//登録確認画面を表示
+	//register_confirm画面を表示
 	public String register_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//登録画面を経由したか
-			if(inputQuestion != null && inputAnswers != null) {
+			//権限と登録画面を経由したかを確認
+			if(getCurrentUserAuth() == 1 && inputQuestion != null) {
 				Validation val = new Validation();
 				//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
 				errorMessage = val.validate(inputQuestion, inputAnswers);
@@ -103,7 +109,7 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -111,26 +117,32 @@ public class QuestionsAnswersAction extends Base{
 	public String register_complete() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			QuestionsDao queDao = new QuestionsDao();
-			AnswersDao ansDao = new AnswersDao(); 
-			//問題を登録
-			int questionId = queDao.register(inputQuestion);
-			//答えを登録
-			ansDao.register(questionId, inputAnswers);
-			//list画面に遷移
-			return "success";
+			//権限と登録確認画面を経由したか確認
+			if(getCurrentUserAuth() == 1 && inputQuestion != null) {
+				QuestionsDao queDao = new QuestionsDao();
+				AnswersDao ansDao = new AnswersDao(); 
+				//問題を登録
+				int questionId = queDao.register(inputQuestion);
+				//答えを登録
+				ansDao.register(questionId, inputAnswers);
+				//list画面に遷移
+				return "list";
+			}else {
+				//error画面に遷移
+				return "error";
+			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
-	//削除確認画面を表示
+	//delete_confirm画面を表示
 	public String delete_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//パラメータで指定したquestionIdが存在するか
-			if(getQuestion() != null) {
+			//権限とパラメータで指定したquestionIdが存在するか確認
+			if(getCurrentUserAuth() == 1 && getQuestion() != null) {
 				//delete_confirm画面に遷移
 				return "delete_confirm";
 			}else {
@@ -139,7 +151,7 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -147,31 +159,36 @@ public class QuestionsAnswersAction extends Base{
 	public String delete_complete() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			QuestionsDao queDao = new QuestionsDao();
-			AnswersDao ansDao = new AnswersDao();
-			//問題と答えを削除
-			queDao.delete(questionId);
-			ansDao.deleteByQuestionId(questionId);
-			//登録されている問題がある場合
-			if(!(getQueList().isEmpty())) {
-				//list画面に遷移
-				return "list" ;
+			//権限とdelete_confirm画面を経由したか確認
+			if(getCurrentUserAuth() == 1 && questionId != 0) {
+				QuestionsDao queDao = new QuestionsDao();
+				AnswersDao ansDao = new AnswersDao();
+				//問題と答えを削除
+				queDao.delete(questionId);
+				ansDao.deleteByQuestionId(questionId);
+				//削除後、登録されている問題がある場合
+				if(!(getQueList().isEmpty())) {
+					//list画面に遷移
+					return "list" ;
+				}else {
+					//top画面に遷移
+					return "top";
+				}
 			}else {
-				//top画面に遷移
-				return "top";
+				return "error";
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
-	//編集画面を表示
+	//edit画面を表示
 	public String edit() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//パラメータで指定したquestionIdが存在するか
-			if(getQuestion() != null) {
+			//権限とパラメータで指定したquestionIdが存在するか確認
+			if(getCurrentUserAuth() == 1 && getQuestion() != null) {
 				//edit画面に遷移
 				return "edit";
 			}else {
@@ -180,16 +197,16 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
-	//編集確認画面を表示
-	public String edit_confirm(){
+	//edit_confirm画面を表示
+	public String edit_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//編集画面を経由したか
-			if(inputQuestion != null && inputAnswers != null) {
+			//権限と編集画面を経由したか確認
+			if(getCurrentUserAuth() == 1 && inputQuestion != null) {
 				Validation val = new Validation();
 				//問題や答えにエラーがないか確認し、エラーメッセージに値を格納
 				errorMessage = val.validate(inputQuestion, inputAnswers);
@@ -201,7 +218,7 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -209,39 +226,45 @@ public class QuestionsAnswersAction extends Base{
 	public String edit_complete() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			QuestionsDao queDao = new QuestionsDao();
-			AnswersDao ansDao = new AnswersDao();
-			//問題を編集
-			queDao.update(inputQuestion,questionId);
-			
-			//問題idからDBに登録されている答えデータを取得
-			ArrayList<AnswersBean> aList = ansDao.findByQuestionId(questionId);
-			
-			//入力された答えの数だけ処理を繰り返す
-			for(int i = 0; i < inputAnswers.length; i++) {
-				if( i < answersId.length) { //入力された答えの中に、idを持つものがあった場合（更新された答えがあった場合）
-					//idをもとにDBに登録されている答えデータを取得
-					AnswersBean tmpAnswer = ansDao.findById(answersId[i]);
-					//入力された答えと、DBに登録されている答えの内容が一致していなかった場合
-					if(!(inputAnswers[i].equals(tmpAnswer.getAnswer()))) {
-						ansDao.update(answersId[i], inputAnswers[i]); //答えを更新
-					}
-				} else { //idを持たない答えがあった場合（新たに追加された答えがあった場合）
-					ansDao.register(questionId, inputAnswers[i]); //答えを登録
-				}
-			}
-			if(aList.size() > answersId.length) { //既存の答えの数の方が、フォームから渡されたidの数より多かった場合（削除された答えがあった場合）
-				for(AnswersBean ans : aList) { //既存の答えの数だけ、処理を繰り返す
-					if(!(Arrays.stream(answersId).anyMatch(x -> x == ans.getId()))){ //既存の答えにしかないidがあった場合
-						ansDao.deleteById(ans.getId()); //答えを削除
+			//権限と編集確認画面を経由したか確認
+			if(getCurrentUserAuth() == 1 && inputQuestion != null) {
+				QuestionsDao queDao = new QuestionsDao();
+				AnswersDao ansDao = new AnswersDao();
+				//問題を編集
+				queDao.update(inputQuestion,questionId);
+				
+				//問題idからDBに登録されている答えデータを取得
+				ArrayList<AnswersBean> aList = ansDao.findByQuestionId(questionId);
+				
+				//入力された答えの数だけ処理を繰り返す
+				for(int i = 0; i < inputAnswers.length; i++) {
+					if( i < answersId.length) { //入力された答えの中に、idを持つものがあった場合（更新された答えがあった場合）
+						//idをもとにDBに登録されている答えデータを取得
+						AnswersBean tmpAnswer = ansDao.findById(answersId[i]);
+						//入力された答えと、DBに登録されている答えの内容が一致していなかった場合
+						if(!(inputAnswers[i].equals(tmpAnswer.getAnswer()))) {
+							ansDao.update(answersId[i], inputAnswers[i]); //答えを更新
+						}
+					} else { //idを持たない答えがあった場合（新たに追加された答えがあった場合）
+						ansDao.register(questionId, inputAnswers[i]); //答えを登録
 					}
 				}
+				if(aList.size() > answersId.length) { //既存の答えの数の方が、フォームから渡されたidの数より多かった場合（削除された答えがあった場合）
+					for(AnswersBean ans : aList) { //既存の答えの数だけ、処理を繰り返す
+						if(!(Arrays.stream(answersId).anyMatch(x -> x == ans.getId()))){ //既存の答えにしかないidがあった場合
+							ansDao.deleteById(ans.getId()); //答えを削除
+						}
+					}
+				}
+				//list画面に遷移
+				return "list";
+			}else {
+				//error画面に遷移
+				return "error";
 			}
-			//list画面に遷移
-			return "success";
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -250,10 +273,10 @@ public class QuestionsAnswersAction extends Base{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//test画面に遷移
-			return "success";
+			return "test";
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
@@ -261,7 +284,7 @@ public class QuestionsAnswersAction extends Base{
 	public String result() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//テスト画面を経由したか
+			//テスト画面を経由したか確認
 			if(inputAnswers != null) {
 				//入力された答えの数だけ処理を繰り返す
 				for(int i = 0; i < inputAnswers.length; i++) {
@@ -293,7 +316,7 @@ public class QuestionsAnswersAction extends Base{
 			}
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	
