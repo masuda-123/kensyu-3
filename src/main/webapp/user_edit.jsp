@@ -60,10 +60,14 @@
 			<a href="<s:url action='logout'/>"><button>logout</button></a>
 		</div>
 		<s:form class="user_form_area" action="user_edit_confirm" onsubmit="return checkValidation()">
+				<div  class="user_form">
+					<label>ID: </label>
+					<p><s:property value="%{user.getId()}"/></p>
+					<s:hidden id="id" name="id" value="%{user.getId()}"/>
+				</div>
 				<div class="user_form">
 					<label>ユーザー名: </label>
 					<p><s:property value="user.getName()"/></p>
-					<s:hidden id="userName" name="userName" value="%{user.getName()}"/>
 				</div>
 				<div class="user_form">
 					<label>PW: </label>
@@ -75,6 +79,7 @@
 				</div>
 				<div class="user_form">
 					<label>管理者権限: </label>
+					<s:hidden id="auth" name="auth" value="0"/>
 					<!-- 管理者の場合 -->
 					<s:if test="%{user.getAdminFlag() == 1}">
 						<s:checkbox id="auth" name="auth" fieldValue="1" value="true"/>
@@ -83,7 +88,6 @@
 					<s:if test="%{user.getAdminFlag() == 0}">
 						<s:checkbox id="auth" name="auth" fieldValue="1" value="false"/>
 					</s:if>
-					<s:hidden id="auth" name="auth" value="%{auth}"/>
 				</div>
 			<div class="bottom_btn_area">
 				<button type="button" onclick="history.back()">戻る</button>

@@ -126,8 +126,8 @@ public class UsersAction extends Base{
 	public String user_edit() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//パラメータで指定したidが存在するか
-			if(getUser().getId() != 0) {
+			//ユーザー権限があり、かつパラメータで指定したidが存在するか
+			if(getCurrentUserAuth() == 1 && getUser().getId() != 0) {
 				return "user_edit";
 			}else {
 				return "error";
@@ -142,8 +142,24 @@ public class UsersAction extends Base{
 	public String user_edit_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//パラメータで指定したidが存在するか
-			if(getUser().getId() != 0) {
+			//入力した内容があるかどうか
+			if(password != null) {
+				return "user_edit_confirm";
+			}else {
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
+	//編集処理
+	public String user_edit_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//入力した内容があるかどうか
+			if(password != null) {
 				return "user_edit";
 			}else {
 				return "error";
