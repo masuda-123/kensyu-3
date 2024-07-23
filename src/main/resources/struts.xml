@@ -107,6 +107,12 @@
 		</action>
 		<action name="user_edit_complete" class="kensyu3.controller.UsersAction" method="user_edit_complete">
 			<result name="user_lists">/user_lists.jsp</result>
+			<result name="top">/top.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+		<action name="user_delete_confirm" class="kensyu3.controller.UsersAction" method="user_delete_confirm">
+			<result name="user_delete_confirm">/user_delete_confirm.jsp</result>
 			<result name="error">/error.jsp</result>
 			<result name="failure">/login.jsp</result>
 		</action>

@@ -15,7 +15,6 @@
 			.user_form_area {margin-top: 20px;}
 			.user_form {display: flex; margin-bottom: 10px;}
 			.user_form label {width: 15%; display: block; text-align: right;}
-			.user_form_info li{margin-left: 20%;}
 			p {margin: 0;}
 		</style>
 	</head>

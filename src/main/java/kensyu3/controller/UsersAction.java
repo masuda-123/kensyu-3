@@ -122,6 +122,30 @@ public class UsersAction extends Base{
 		}
 	}
 	
+	//登録処理
+	public String user_register_complete() throws Exception{
+		//Baseクラスでログインしているかどうかを確認
+		if (super.isCheckLogin()) {
+			//入力した内容があるかどうか
+			if(userName != null) {
+				UsersDao usersDao = new UsersDao();
+				//パスワードを暗号化
+				PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
+				String encyptPassword = passwordEncrypter.encrypt(password);
+				//ユーザーを登録
+				usersDao.register(userName, encyptPassword, auth);
+				//user_lists画面に遷移
+				return "user_lists";
+			}else {
+				//error画面に遷移
+				return "error";
+			}
+		}else {
+			//ログイン画面に遷移
+			return "failure";
+		}
+	}
+	
 	//user_edit画面を表示
 	public String user_edit() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
@@ -170,8 +194,13 @@ public class UsersAction extends Base{
 				String encyptPassword = passwordEncrypter.encrypt(password);
 				//ユーザーを更新
 				usersDao.update(Integer.parseInt(id), encyptPassword, auth);
-				//user_lists画面に遷移
-				return "user_lists";
+				//ユーザー権限があるかどうか確認
+				if(getCurrentUserAuth() == 1) {
+					//user_lists画面に遷移
+					return "user_lists";
+				}else {
+					return "top";
+				}
 			}else {
 				//error画面に遷移
 				return "error";
@@ -182,20 +211,14 @@ public class UsersAction extends Base{
 		}
 	}
 	
-	//登録処理
-	public String user_register_complete() throws Exception{
+	//delete_confirm画面
+	public String user_delete_confirm() throws Exception{
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
-			//入力した内容があるかどうか
-			if(userName != null) {
-				UsersDao usersDao = new UsersDao();
-				//パスワードを暗号化
-				PasswordEncrypter passwordEncrypter = new PasswordEncrypter();
-				String encyptPassword = passwordEncrypter.encrypt(password);
-				//ユーザーを登録
-				usersDao.register(userName, encyptPassword, auth);
-				//user_lists画面に遷移
-				return "user_lists";
+			//ユーザー権限があり、かつパラメータで指定したidが存在するか
+			if(getCurrentUserAuth() == 1 && getUser().getId() != 0) {
+				//user_delete_confirm画面に遷移
+				return "user_delete_confirm";
 			}else {
 				//error画面に遷移
 				return "error";
