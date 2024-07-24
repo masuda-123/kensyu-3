@@ -13,7 +13,7 @@ public class PasswordEncrypter {
 	private static final String INIT_VECTOR= "1234567890123456";
 	
 	//パスワードの暗号化
-	public String encypt(String password){
+	public String encrypt(String password){
 		String encryptedPassword = null;
 		try {
 			// 暗号化キーと初期化ベクトルをバイト配列へ変換し、オブジェクト生成

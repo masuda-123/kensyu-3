@@ -6,79 +6,125 @@
 	<constant name="struts.action.extension" value=""/>
 	<!-- URLに対応するアクションの定義 -->
 	<package name="default" extends="struts-default">
-		<action name="top" class="kensyu3.controller.UsersAction" method="top">
-			<result name="success">/top.jsp</result>
-			<result name="failure">/login.jsp</result>
+		<action name="top" class="kensyu3.controller.QuestionsAnswersAction" method="top">
+			<result name="top">/top.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="list" class="kensyu3.controller.QuestionsAnswersAction" method="list">
 			<result name="list">/list.jsp</result>
 			<result name="register">/register.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="login" class="kensyu3.controller.UsersAction" method="login">
-			<result name="success">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="postLogin" class="kensyu3.controller.UsersAction" method="postLogin">
-			<result name="success">/top.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="top">/top.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="logout" class="kensyu3.controller.UsersAction" method="logout">
-			<result name="success">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="register" class="kensyu3.controller.QuestionsAnswersAction" method="register">
-			<result name="success">/register.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="register">/register.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="register_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="register_confirm">
 			<result name="register_confirm">/register_confirm.jsp</result>
 			<result name="error">/error.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="register_complete" class="kensyu3.controller.QuestionsAnswersAction" method="register_complete">
-			<result name="success">/list.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="list">/list.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="delete_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="delete_confirm">
 			<result name="delete_confirm">/delete_confirm.jsp</result>
 			<result name="error">/error.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="delete_complete" class="kensyu3.controller.QuestionsAnswersAction" method="delete_complete">
 			<result name="list">/list.jsp</result>
 			<result name="top">/top.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="edit" class="kensyu3.controller.QuestionsAnswersAction" method="edit">
 			<result name="edit">/edit.jsp</result>
 			<result name="error">/error.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="edit_confirm" class="kensyu3.controller.QuestionsAnswersAction" method="edit_confirm">
 			<result name="edit_confirm">/edit_confirm.jsp</result>
 			<result name="error">/error.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="edit_complete" class="kensyu3.controller.QuestionsAnswersAction" method="edit_complete">
-			<result name="success">/list.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="list">/list.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="test" class="kensyu3.controller.QuestionsAnswersAction" method="test">
-			<result name="success">/test.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="test">/test.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="result" class="kensyu3.controller.QuestionsAnswersAction" method="result">
 			<result name="result">/result.jsp</result>
 			<result name="error">/error.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="history" class="kensyu3.controller.HistoriesAction" method="history">
-			<result name="success">/history.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="history">/history.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="user_lists" class="kensyu3.controller.UsersAction" method="user_lists">
 			<result name="user_lists">/user_lists.jsp</result>
 			<result name="error">/error.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_register" class="kensyu3.controller.UsersAction" method="user_register">
+			<result name="user_register">/user_register.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_register_confirm" class="kensyu3.controller.UsersAction" method="user_register_confirm">
+			<result name="user_register_confirm">/user_register_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_register_complete" class="kensyu3.controller.UsersAction" method="user_register_complete">
+			<result name="user_lists">/user_lists.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_edit" class="kensyu3.controller.UsersAction" method="user_edit">
+			<result name="user_edit">/user_edit.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_edit_confirm" class="kensyu3.controller.UsersAction" method="user_edit_confirm">
+			<result name="user_edit_confirm">/user_edit_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_edit_complete" class="kensyu3.controller.UsersAction" method="user_edit_complete">
+			<result name="user_lists">/user_lists.jsp</result>
+			<result name="top">/top.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_delete_confirm" class="kensyu3.controller.UsersAction" method="user_delete_confirm">
+			<result name="user_delete_confirm">/user_delete_confirm.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<action name="user_delete_complete" class="kensyu3.controller.UsersAction" method="user_delete_complete">
+			<result name="user_lists">/user_lists.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 	</package>
 </struts>

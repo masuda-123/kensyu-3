@@ -24,10 +24,10 @@ public class HistoriesAction extends Base {
 		//Baseクラスでログインしているかどうかを確認
 		if (super.isCheckLogin()) {
 			//history画面に遷移
-			return "success" ;
+			return "history" ;
 		}else {
 			//login画面に遷移
-			return "failure";
+			return "login";
 		}
 	}
 	

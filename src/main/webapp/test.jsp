@@ -15,9 +15,9 @@
 			.test_question_area {margin-top: 10px; display: flex;}
 			.test_answers_area {margin-top: 10px; display: flex;}
 			.test_answer_form {width: 100%;}
-			.test_answer_form input {width: 98.6%; height: 20px;}
+			.test_answer_form input {width: 95.5%; height: 20px;}
 			.btn_area {text-align: right; margin: 10px 20px;}
-			.bottom_btn_area {text-align: right; margin-top: 10px;}
+			.bottom_btn_area {text-align: right; margin: 10px 20px;}
 		</style>
 	</head>
 	<body>
